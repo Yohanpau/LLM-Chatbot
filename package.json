@@ -1,5 +1,5 @@
 {
-  "name": "llm-chatbot",
+  "name": "dueminder",
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "prebuild": "npm run prebuild --workspaces --if-present",
