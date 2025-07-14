@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { backend } from 'declarations/backend';
 import botImg from '/bot.svg';
 import userImg from '/user.svg';
 import '/index.css';
@@ -21,7 +20,7 @@ const App = () => {
     return `${h.slice(-2)}:${m.slice(-2)}`;
   };
 
-  const askAgent = async (messages) => {
+  /*const askAgent = async (messages) => {
     try {
       const response = await backend.chat(messages);
       setChat((prevChat) => {
@@ -45,7 +44,7 @@ const App = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };*/
 
   const handleSubmit = (e) => {
     e.preventDefault();
