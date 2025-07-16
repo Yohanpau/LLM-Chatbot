@@ -12,7 +12,6 @@ const MainApp = () => { // changed into arrow function insteat of just a functio
       <Routes>
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<h1>Home Page</h1>} />
       </Routes>
     </BrowserRouter>
   );

@@ -21,11 +21,12 @@ function LogIn() {
         </div>
 
         <div className="flex flex-col w-[100%]">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" id="email">Email</label>
           <input
             type="text"
             placeholder="Enter your email address"
             name="email"
+            id="email"
             required
           />
         </div>
