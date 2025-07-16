@@ -1,8 +1,10 @@
 import React from "react"; // Enables use of JSX (e.g. <h1>Hi</h1>)
 import ReactDOM from "react-dom/client"; //Mounts React app into the real HTML (<div id="root"></div>)
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Handles page navigation
-import SignUp from "./pages/SignUp.jsx";
+import SignUp from "./pages/signup.jsx";
 import LogIn from "./pages/login.jsx"; 
+import "/index.css";
+
 //Since we don't have app.jsx, we just put this block of code to the main,jsx instead
 const MainApp = () => { // changed into arrow function insteat of just a function
   return (
