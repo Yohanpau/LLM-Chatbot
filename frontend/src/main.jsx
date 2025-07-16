@@ -179,7 +179,7 @@ const App = () => {
                   </p>
 
                   <div className="flex absolute sm:mt-[2vw] mr-[4vw] mt-[8vw] sm:rounded-[0.3vw] rounded-[1vw] sm:h-[2.2vw] h-[7vw] w-[17vw] sm:w-[5vw] sm:mr-[2vw] bg-slate-100 bg-opacity-90 text-[#4D1717] text-[3vw] sm:text-[1vw] justify-center items-center font-bold">
-                    <button>Delete</button>
+                    <a href="src/pages/SignUp.jsx" >Delete</a>
                   </div>
                 </div>
               </div>
