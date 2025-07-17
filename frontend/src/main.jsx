@@ -10,7 +10,7 @@ const MainApp = () => { // changed into arrow function insteat of just a functio
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LogIn />} />
+        <Route path="/" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
