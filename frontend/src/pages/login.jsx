@@ -8,20 +8,28 @@ function LogIn() {
       >
         <div className="flex flex-wrap font-bold gap-[0.3em]">
           <div className="text-[2.9rem]/[1.2em] ">
-            <h1>Welcome to</h1>
-            <h1 className="text-[#FE7531]">
-              DueMinder <span className="ml-[-0.2em]">,</span>
+            <h1>
+              Welcome to
+              <div>
+                <span className="text-[#FE7531]">
+                  DueMinder<span className="text-[#e7deda]">,</span>
+                </span>
+              </div>
+              Sign In to Continue.
             </h1>
-            <h1>Sign In to Continue.</h1>
           </div>
           <p className="text-[1rem] font-normal">
             Don’t have an account?{" "}
-            <a href="./pages/signup" className="text-[#FE7531] font-bold">Create an account</a>
+            <a href="./pages/signup" className="text-[#FE7531] font-bold">
+              Create an account
+            </a>
           </p>
         </div>
 
         <div className="flex flex-col w-[100%]">
-          <label htmlFor="email" id="email">Email</label>
+          <label htmlFor="email" id="email">
+            Email
+          </label>
           <input
             type="text"
             placeholder="Enter your email address"
