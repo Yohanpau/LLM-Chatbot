@@ -24,7 +24,92 @@ function DueMinder() {
     // }
 
   return (
-    <></>
+    <>
+      {/* Upper icons */}
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">
+        {/* AI icon */}
+        <svg
+          width="60"
+          height="60"
+          viewBox="0 0 70 70"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
+            fill="#e7deda"
+          />
+
+          {/* Lower-left small star moved down and left */}
+          <path
+            d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+            fill="#e7deda"
+          />
+          {/* Upper-right small star moved up and right */}
+          <path
+            d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+            fill="#e7deda"
+          />
+        </svg>
+
+        {/* Settings icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 30 30"
+          fill="#e7deda"
+        >
+          <path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.11,-0.61l-1.92,-3.32c-0.12,-0.21 -0.37,-0.3 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94l-0.36,-2.54c-0.04,-0.23 -0.23,-0.4 -0.47,-0.4h-3.84c-0.24,0 -0.44,0.17 -0.47,0.4l-0.36,2.54c-0.59,0.24 -1.13,0.56 -1.62,0.94l-2.39,-0.96c-0.22,-0.09 -0.47,0.01 -0.59,0.22l-1.92,3.32c-0.12,0.21 -0.07,0.47 0.11,0.61l2.03,1.58c-0.05,0.3 -0.07,0.62 -0.07,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.4 -0.11,0.61l1.92,3.32c0.12,0.21 0.37,0.3 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.03,0.23 0.23,0.4 0.47,0.4h3.84c0.24,0 0.44,-0.17 0.47,-0.4l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.09 0.47,-0.01 0.59,-0.22l1.92,-3.32c0.12,-0.21 0.07,-0.47 -0.11,-0.61l-2.03,-1.58zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5s3.5,1.57 3.5,3.5s-1.57,3.5 -3.5,3.5z" />
+        </svg>
+      </div>
+
+      {/* Bill and budget */}
+      <div className="text-[#e7deda] flex flex-row justify-between font-bold">
+        {/* Total amount of bill */}
+        <div>
+          <h2 className="text-[1.5em]">Total Bill</h2>
+          <h1 className="text-[2em] text-[#FE7531]">₱Amount</h1>
+        </div>
+        {/* Amount of budget */}
+        <div className="text-right">
+          <h4 className="text-[1em]">Budget</h4>
+          <h5 className="text-[#FE7531] text-[0.875em]">₱Amount</h5>
+        </div>
+      </div>
+
+      {/* List of bills */}
+      <div className="text-[#e7deda]">
+        <h2 className="text-[1.5em] font-bold">My Bills</h2>
+        <div>
+          {/* Search bar */}
+          <form action="#" className="relative">
+            <input
+              type="text"
+              placeholder="Search you bill here..."
+              name="search"
+              id="search"
+              className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#e7deda"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 absolute right-[37%] top-[26%]"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </form>
+        </div>
+      </div>
+    </>
   );
 }
 
