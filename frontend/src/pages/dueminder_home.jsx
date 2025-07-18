@@ -83,19 +83,19 @@ function Home() {
       </div>
 
       {/* Bills section */}
-      <div className="text-[#e7deda] flex flex-col gap-[0.6em]">
+      <div className="text-[#e7deda] flex flex-col gap-[0.6em] w-[100%] h-[69vh]">
         {/* Title */}
         <h2 className="text-[1.5em] font-bold">My Bills</h2>
         {/* Search and dropdown */}
-        <div className="flex flex-row gap-[0.4em]">
+        <div className="flex flex-row gap-[0.4em] w-[100%]">
           {/* Search bar */}
-          <form action="#" className="relative">
+          <form action="#" className="relative w-[100%]">
             <input
               type="text"
-              placeholder="Search your bill..."
+              placeholder="Search your bill here..."
               name="search"
               id="search"
-              className="h-[2.5em] w-[11.2em] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
+              className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -113,11 +113,12 @@ function Home() {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </form>
-          <button className="flex items-center gap-2 px-4 py-1 bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]">
-            Dropdown
+          {/* Dropdown */}
+          <button className="flex w-[50%] items-center gap-2 px-4 py-1 bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]">
+            Sort By
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
+              className="h-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -133,9 +134,9 @@ function Home() {
         </div>
 
         {/* Bills list */}
-        <div className="flex flex-col gap-[0.375em] h-[24em] w-fit overflow-auto">
+        <div className="flex flex-col gap-[0.375em] h-full overflow-auto">
           {/* First Bill */}
-          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
             {/* Bill name */}
             <div className="flex flex-row justify-between">
               <h3 className="text-[1.25rem] font-bold">Electricity</h3>
@@ -172,7 +173,7 @@ function Home() {
           </div>
 
           {/* Second Bill */}
-          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
             {/* Bill name */}
             <div className="flex flex-row justify-between">
               <h3 className="text-[1.25rem] font-bold">House Rent</h3>
@@ -210,7 +211,7 @@ function Home() {
           </div>
 
           {/* Third Bill */}
-          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
             {/* Bill name */}
             <div className="flex flex-row justify-between">
               <h3 className="text-[1.25rem] font-bold">Water</h3>
@@ -248,10 +249,10 @@ function Home() {
           </div>
 
           {/* Fourth Bill */}
-          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
             {/* Bill name */}
             <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Wifi</h3>
+              <h3 className="text-[1.25rem] font-bold">Water</h3>
               <div className="relative inline-block text-left">
                 <button className="p-1 rounded-full hover:bg-[#4646465e]">
                   <svg
@@ -281,10 +282,88 @@ function Home() {
             {/* Bill due date and amount */}
             <div className="flex flex-row justify-between">
               <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱2999</h3>
+              <h3 className="text-[1.25rem] font-bold">₱600</h3>
+            </div>
+          </div>
+
+          {/* Fifth Bill */}
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">Water</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                {/* Tinanggal ko muna para makita niyo yung amount */}
+                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div> */}
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/20/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱600</h3>
+            </div>
+          </div>
+
+          {/* Sixth Bill */}
+          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">Water</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                {/* Tinanggal ko muna para makita niyo yung amount */}
+                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div> */}
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/20/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱600</h3>
             </div>
           </div>
         </div>
+
+        {/* Add bill button */}
         <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
           <button className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90">
             <svg
