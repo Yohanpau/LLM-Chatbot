@@ -4,7 +4,7 @@ function LogIn() {
   return (
     <form
       action=""
-      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] ml-[1.5em] mr-[1.5em] gap-[3.25em]"
+      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
     >
       {/* Header */}
       <div className="flex flex-wrap font-bold gap-[0.3em]">
@@ -21,7 +21,7 @@ function LogIn() {
         </div>
         <p className="text-[1.1rem] font-normal">
           Don’t have an account?{" "}
-          <a href="./pages/signup" className="text-[#FE7531] font-bold">
+          <a href="/signup" className="text-[#FE7531] font-bold">
             Create an account
           </a>
         </p>
@@ -96,7 +96,9 @@ function LogIn() {
       </div>
 
       {/* Sign In button */}
-      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold">Sign In</button>
+      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold">
+        Sign In
+      </button>
     </form>
   );
 }

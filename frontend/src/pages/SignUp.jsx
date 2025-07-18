@@ -4,7 +4,7 @@ function SignUp() {
   return (
     <form
       action=""
-      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] ml-[1.5em] mr-[1.5em] gap-[3.25em]"
+      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
     >
       {/* Header */}
       <h1 className="flex flex-wrap text-[#FE7531] text-[2.9rem]/[1.2em] font-bold">
@@ -88,7 +88,7 @@ function SignUp() {
               </>
             </svg>
           </div>
-          <a href="#" className="flex w-[100%] justify-end">
+          <a href="/" className="flex w-[100%] justify-end">
             Already have an account?
           </a>
         </div>
