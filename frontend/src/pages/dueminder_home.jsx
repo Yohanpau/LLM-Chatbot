@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function DueMinder() {
+function Home() {
     // const [loading, setLoading] = useState(true);
 
     // useEffect(() => {
@@ -34,6 +34,7 @@ function DueMinder() {
           viewBox="0 0 70 70"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className="hover:scale-90"
         >
           <path
             d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
@@ -53,23 +54,26 @@ function DueMinder() {
         </svg>
 
         {/* Settings icon */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 30 30"
-          fill="#e7deda"
-        >
-          <path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.11,-0.61l-1.92,-3.32c-0.12,-0.21 -0.37,-0.3 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94l-0.36,-2.54c-0.04,-0.23 -0.23,-0.4 -0.47,-0.4h-3.84c-0.24,0 -0.44,0.17 -0.47,0.4l-0.36,2.54c-0.59,0.24 -1.13,0.56 -1.62,0.94l-2.39,-0.96c-0.22,-0.09 -0.47,0.01 -0.59,0.22l-1.92,3.32c-0.12,0.21 -0.07,0.47 0.11,0.61l2.03,1.58c-0.05,0.3 -0.07,0.62 -0.07,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.4 -0.11,0.61l1.92,3.32c0.12,0.21 0.37,0.3 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.03,0.23 0.23,0.4 0.47,0.4h3.84c0.24,0 0.44,-0.17 0.47,-0.4l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.09 0.47,-0.01 0.59,-0.22l1.92,-3.32c0.12,-0.21 0.07,-0.47 -0.11,-0.61l-2.03,-1.58zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5s3.5,1.57 3.5,3.5s-1.57,3.5 -3.5,3.5z" />
-        </svg>
+        <a href="/settings">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 30 30"
+            fill="#e7deda"
+            className="hover:scale-90"
+          >
+            <path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.11,-0.61l-1.92,-3.32c-0.12,-0.21 -0.37,-0.3 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94l-0.36,-2.54c-0.04,-0.23 -0.23,-0.4 -0.47,-0.4h-3.84c-0.24,0 -0.44,0.17 -0.47,0.4l-0.36,2.54c-0.59,0.24 -1.13,0.56 -1.62,0.94l-2.39,-0.96c-0.22,-0.09 -0.47,0.01 -0.59,0.22l-1.92,3.32c-0.12,0.21 -0.07,0.47 0.11,0.61l2.03,1.58c-0.05,0.3 -0.07,0.62 -0.07,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.4 -0.11,0.61l1.92,3.32c0.12,0.21 0.37,0.3 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.03,0.23 0.23,0.4 0.47,0.4h3.84c0.24,0 0.44,-0.17 0.47,-0.4l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.09 0.47,-0.01 0.59,-0.22l1.92,-3.32c0.12,-0.21 0.07,-0.47 -0.11,-0.61l-2.03,-1.58zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5s3.5,1.57 3.5,3.5s-1.57,3.5 -3.5,3.5z" />
+          </svg>
+        </a>
       </div>
 
       {/* Bill and budget */}
-      <div className="text-[#e7deda] flex flex-row justify-between font-bold">
+      <div className="text-[#e7deda] flex flex-row justify-between font-bold mb-[2.813em]">
         {/* Total amount of bill */}
-        <div>
-          <h2 className="text-[1.5em]">Total Bill</h2>
-          <h1 className="text-[2em] text-[#FE7531]">₱Amount</h1>
+        <div className="">
+          <h2 className="text-[1.5rem]/[1em]">Total Bill</h2>
+          <h1 className="text-[2rem] text-[#FE7531]">₱Amount</h1>
         </div>
         {/* Amount of budget */}
         <div className="text-right">
@@ -78,18 +82,20 @@ function DueMinder() {
         </div>
       </div>
 
-      {/* List of bills */}
-      <div className="text-[#e7deda]">
+      {/* Bills section */}
+      <div className="text-[#e7deda] flex flex-col gap-[0.6em]">
+        {/* Title */}
         <h2 className="text-[1.5em] font-bold">My Bills</h2>
-        <div>
+        {/* Search and dropdown */}
+        <div className="flex flex-row gap-[0.4em]">
           {/* Search bar */}
           <form action="#" className="relative">
             <input
               type="text"
-              placeholder="Search you bill here..."
+              placeholder="Search your bill..."
               name="search"
               id="search"
-              className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
+              className="h-[2.5em] w-[11.2em] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,16 +107,205 @@ function DueMinder() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-5 h-5 absolute right-[37%] top-[26%]"
+              className="w-5 h-5 absolute right-[8%] top-[26%]"
             >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </form>
+          <button className="flex items-center gap-2 px-4 py-1 bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]">
+            Dropdown
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Bills list */}
+        <div className="flex flex-col gap-[0.375em] h-[24em] w-fit overflow-auto">
+          {/* First Bill */}
+          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">Electricity</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                <div className="absolute right-[0.2em] mt-[0.1em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/12/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱100</h3>
+            </div>
+          </div>
+
+          {/* Second Bill */}
+          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">House Rent</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                {/* Tinanggal ko muna para makita niyo yung amount */}
+                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div> */}
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/20/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱10000</h3>
+            </div>
+          </div>
+
+          {/* Third Bill */}
+          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">Water</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                {/* Tinanggal ko muna para makita niyo yung amount */}
+                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div> */}
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/20/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱600</h3>
+            </div>
+          </div>
+
+          {/* Fourth Bill */}
+          <div className="flex flex-col justify-between align-middle h-[6.5em] w-[20em] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+            {/* Bill name */}
+            <div className="flex flex-row justify-between">
+              <h3 className="text-[1.25rem] font-bold">Wifi</h3>
+              <div className="relative inline-block text-left">
+                <button className="p-1 rounded-full hover:bg-[#4646465e]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-7 w-7 "
+                    viewBox="0 0 24 24"
+                    fill="#FE7531"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </button>
+
+                {/* Tinanggal ko muna para makita niyo yung amount */}
+                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Edit
+                  </button>
+                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
+                    Delete
+                  </button>
+                </div> */}
+              </div>
+            </div>
+            <hr />
+            {/* Bill due date and amount */}
+            <div className="flex flex-row justify-between">
+              <p>Due: 02/20/25</p>
+              <h3 className="text-[1.25rem] font-bold">₱2999</h3>
+            </div>
+          </div>
+        </div>
+        <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
+          <button className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6 hover:scale-90"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </>
   );
 }
 
-export default DueMinder;
+export default Home;
