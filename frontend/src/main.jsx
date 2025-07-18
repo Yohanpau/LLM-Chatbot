@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client"; //Mounts React app into the real HTML (
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Handles page navigation
 import SignUp from "./pages/signup.jsx";
 import LogIn from "./pages/login.jsx"; 
-import DueMinder from "./pages/dueminder.jsx"; 
+import DueMinder from "./pages/dueminder_home.jsx"; 
 import "/index.css";
 
 //Since we don't have app.jsx, we just put this block of code to the main,jsx instead
@@ -13,7 +13,7 @@ const MainApp = () => { // changed into arrow function insteat of just a functio
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dueminder" element={<DueMinder />} />
+        <Route path="/home" element={<DueMinder />} />
       </Routes>
     </BrowserRouter>
   );
