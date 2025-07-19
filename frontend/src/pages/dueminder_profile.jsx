@@ -53,13 +53,13 @@ function Profile() {
       </div>
 
       {/* Profile edit section */}
-      <div className="text-[#e7deda] flex flex-col gap-[3em] w-[100%] h-[80vh]">
+      <div className="text-[#e7deda] flex flex-col gap-[1.5%] w-[100%] h-[80vh]">
         {/* Title */}
         <h2 className="text-[1.5em] font-bold">Profile</h2>
         {/* User profile */}
         <div>
           <div className="flex justify-center items-center">
-            <div className="w-[7em] h-[7em] rounded-full bg-[#222222] border border-[#FE7531] flex items-center justify-center overflow-hidden">
+            <div className="w-[6em] h-[6em] rounded-full bg-[#222222] border border-[#FE7531] flex items-center justify-center overflow-hidden">
               <img alt="User Profile" className="w-full h-full object-cover" />
               <span className="text-[#FE7531] text-xs">👤</span>
             </div>
@@ -77,15 +77,38 @@ function Profile() {
               <label htmlFor="budget" id="budget" className="text-[#FE7531]">
                 Budget
               </label>
-              <input
-                type="number"
-                min="0"
-                placeholder="How much is your budget?"
-                name="budget"
-                id="budget"
-                required
-                className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
-              />
+              <div className="relative">
+                <input
+                  type="number"
+                  min="0"
+                  placeholder="How much is your budget?"
+                  name="budget"
+                  id="budget"
+                  required
+                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                />
+                {/* Edit icon */}
+                <button
+                  className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
+                  aria-label="Edit"
+                >
+                  {/* Pencil SVG Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {/* Full name field */}
@@ -93,14 +116,37 @@ function Profile() {
               <label htmlFor="name" id="name" className="text-[#FE7531]">
                 Full Name
               </label>
-              <input
-                type="text"
-                placeholder="User name" //Put the name that the user used in signing up
-                name="name"
-                id="name"
-                required
-                className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="How much is your budget?"
+                  name="name"
+                  id="name"
+                  required
+                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                />
+                {/* Edit icon */}
+                <button
+                  className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
+                  aria-label="Edit"
+                >
+                  {/* Pencil SVG Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {/* Email field */}

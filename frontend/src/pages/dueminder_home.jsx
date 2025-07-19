@@ -166,7 +166,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/12/25</p>
               <h3 className="text-[1.25rem] font-bold">₱100</h3>
             </div>
@@ -204,7 +204,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/20/25</p>
               <h3 className="text-[1.25rem] font-bold">₱10000</h3>
             </div>
@@ -242,7 +242,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/20/25</p>
               <h3 className="text-[1.25rem] font-bold">₱600</h3>
             </div>
@@ -280,7 +280,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/20/25</p>
               <h3 className="text-[1.25rem] font-bold">₱600</h3>
             </div>
@@ -318,7 +318,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/20/25</p>
               <h3 className="text-[1.25rem] font-bold">₱600</h3>
             </div>
@@ -356,7 +356,7 @@ function Home() {
             </div>
             <hr />
             {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-2">
               <p>Due: 02/20/25</p>
               <h3 className="text-[1.25rem] font-bold">₱600</h3>
             </div>
