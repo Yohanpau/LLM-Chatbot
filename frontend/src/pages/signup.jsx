@@ -1,8 +1,38 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
+  const navigate = useNavigate();
+  const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = (data) => {
+        const existingUser = JSON.parse(localStorage.getItem(data.email));
+        if (existingUser) {
+            console.log("Email is already registered!");
+            alert("Email already registered!");
+            navigate("/login")
+        } else {
+            const userData = {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+            };
+            localStorage.setItem(data.email, JSON.stringify(userData));
+            localStorage.setItem("authenticatedUser", JSON.stringify(userData));
+            console.log(data.name + " has been successfully registered");
+            alert("Success!");
+            navigate("/login")
+        }
+
+    };
   return (
     <form
+      onSubmit={handleSubmit(onSubmit)}
       action=""
       className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
     >
@@ -19,12 +49,13 @@ function SignUp() {
           </label>
           <input
             type="text"
+            {...register("name", { required: true })}
             placeholder="Enter your full name..."
             name="name"
             id="name"
-            required
             className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
           />
+          {errors.name && <span style={{ color: "red" }}>*Name* is mandatory</span>}
         </div>
 
         {/* Email field */}
@@ -34,12 +65,13 @@ function SignUp() {
           </label>
           <input
             type="text"
+            {...register("email", { required: true })}
             placeholder="Enter your email address..."
             name="email"
             id="email"
-            required
             className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
           />
+          {errors.email && <span style={{ color: "red" }}>*Email* is mandatory</span>}
         </div>
 
         {/* Password field */}
@@ -50,12 +82,13 @@ function SignUp() {
           <div className="relative">
             <input
               type="password"
+              {...register("password", { required: true })}
               placeholder="Enter your password..."
               name="password"
               id="password"
-              required
               className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
             />
+            {errors.password && <span style={{ color: "red" }}>*Password* is mandatory</span>}
             {/* Eye icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +128,8 @@ function SignUp() {
       </div>
 
       {/* Sign Up button */}
-      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold">
+      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold"
+      type="submit">
         Sign Up
       </button>
     </form>

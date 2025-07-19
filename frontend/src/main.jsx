@@ -5,6 +5,7 @@ import SignUp from "./pages/signup.jsx";
 import LogIn from "./pages/login.jsx"; 
 import Home from "./pages/dueminder_home.jsx"; 
 import Settings from "./pages/dueminder_settings.jsx"; 
+import ProtectedRoute from "./components/protectedroutes.jsx" //Protecting Routes to be simple typed in by users without Authenticatio. (Home and Setting)
 import "/index.css";
 
 //Since we don't have app.jsx, we just put this block of code to the main,jsx instead
@@ -14,8 +15,16 @@ const MainApp = () => { // changed into arrow function insteat of just a functio
       <Routes>
         <Route path="/" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+          } />
       </Routes>
     </BrowserRouter>
   );

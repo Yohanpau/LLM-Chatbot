@@ -1,8 +1,35 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 function LogIn() {
+  const navigate = useNavigate();
+  const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = (data) => {
+        const userData = JSON.parse(localStorage.getItem(data.email));
+        if (userData) {
+            if (userData.password === data.password) {
+                console.log(userData.name + " You Are Successfully Logged In");
+                alert("Success!")
+                navigate("/home")
+            } else {
+                console.log("Email or Password is not matching with our record");
+                alert("Credentials error.")
+            }
+        } else {
+            console.log("Email or Password is not matching with our record");
+            alert("You are not Registered yet.")
+        }
+    };
+
   return (
     <form
+    onSubmit={handleSubmit(onSubmit)}
       action=""
       className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
     >
@@ -35,12 +62,14 @@ function LogIn() {
           </label>
           <input
             type="text"
+            {...register("email", { required: true })}
             placeholder="Enter your email address..."
             name="email"
             id="email"
             required
             className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
           />
+          {errors.email && <span style={{ color: "red" }}>*Email* is mandatory</span>}
         </div>
 
         {/* Password field */}
@@ -51,12 +80,14 @@ function LogIn() {
           <div className="relative">
             <input
               type="password"
+              {...register("password", { required: true })}
               placeholder="Enter your password..."
               name="password"
               id="password"
               required
               className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
             />
+            {errors.password && <span style={{ color: "red" }}>*Password* is mandatory</span>}
             {/* Eye icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +127,8 @@ function LogIn() {
       </div>
 
       {/* Sign In button */}
-      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold">
+      <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold"
+      type="submit">
         Sign In
       </button>
     </form>
