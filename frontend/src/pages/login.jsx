@@ -14,6 +14,7 @@ function LogIn() {
         const userData = JSON.parse(localStorage.getItem(data.email));
         if (userData) {
             if (userData.password === data.password) {
+                localStorage.setItem("authenticatedUser", JSON.stringify(userData));
                 console.log(userData.name + " You Are Successfully Logged In");
                 alert("Success!")
                 navigate("/home")

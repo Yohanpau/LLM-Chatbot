@@ -15,7 +15,7 @@ function SignUp() {
         if (existingUser) {
             console.log("Email is already registered!");
             alert("Email already registered!");
-            navigate("/login")
+            navigate("/")
         } else {
             const userData = {
                 name: data.name,
@@ -26,7 +26,7 @@ function SignUp() {
             localStorage.setItem("authenticatedUser", JSON.stringify(userData));
             console.log(data.name + " has been successfully registered");
             alert("Success!");
-            navigate("/login")
+            navigate("/")
         }
 
     };
