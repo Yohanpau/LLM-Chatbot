@@ -85,7 +85,6 @@ ${knowledge}
   return parts?.map((p) => p.text).join("") ?? "⚠️ No response generated.";
 }
 
-// Endpoint to answer from frontend
 app.post("/api/chat", async (req, res) => {
   const { query } = req.body;
   try {
