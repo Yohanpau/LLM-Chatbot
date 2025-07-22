@@ -24,6 +24,13 @@ function Home() {
     //   );
     // }
 
+    // Dropdown
+    
+    const [open, setOpen] = useState(false);
+    const [selected, setSelected] = useState("Priority");
+
+    const options = ["High", "Medium", "Low"];
+
   return (
     <>
       {/* Upper icons */}
@@ -114,24 +121,49 @@ function Home() {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </form>
+
           {/* Dropdown */}
-          <button className="flex w-[50%] items-center gap-2 px-4 py-1 bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]">
-            Sort By
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <div className="relative w-[50%]">
+            <button
+              onClick={() => setOpen(!open)}
+              className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
+              {selected}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-4 transition-transform duration-200 ${
+                  open ? "rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {open && (
+              <ul className="absolute mt-2 w-full z-10 bg-[#1a1a1a] border border-[#464646] rounded-[0.625em] text-[#e7deda]">
+                {options.map((option) => (
+                  <li
+                    key={option}
+                    onClick={() => {
+                      setSelected(option);
+                      setOpen(false);
+                    }}
+                    className="px-4 py-2 hover:bg-[#333] cursor-pointer"
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         {/* Bills list */}
