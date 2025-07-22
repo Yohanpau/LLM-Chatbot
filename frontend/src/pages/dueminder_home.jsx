@@ -165,7 +165,7 @@ export default function Home() {
           </svg>
         </Link>
       </div>
-      
+
       {/* Bill and budget */}
       <div className="text-[#e7deda] flex flex-row justify-between font-bold mb-[2.813em]">
         {/* Total amount of bill */}
@@ -381,8 +381,11 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => {
-                    // Save the bill to state
-                    const updatedBills = [...bills, newBill];
+                    const billWithId = {
+                      ...newBill,
+                      id: Date.now(), // Add this line to generate a unique ID
+                    };
+                    const updatedBills = [...bills, billWithId];
                     setBills(updatedBills);
                     localStorage.setItem("bills", JSON.stringify(updatedBills));
 
