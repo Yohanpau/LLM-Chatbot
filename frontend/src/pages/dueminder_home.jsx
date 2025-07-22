@@ -79,7 +79,9 @@ export default function Home() {
   const handleDelete = (id) => {
     const confirmDelete = window.confirm("Delete this bill?");
     if (confirmDelete) {
-      setBills(bills.filter((bill) => bill.id !== id));
+      const updatedBills = bills.filter((bill) => bill.id !== id);
+      setBills(updatedBills);
+      localStorage.setItem("bills", JSON.stringify(updatedBills));
     }
   };
 
@@ -380,7 +382,9 @@ export default function Home() {
                 <button
                   onClick={() => {
                     // Save the bill to state
-                    setBills([...bills, newBill]);
+                    const updatedBills = [...bills, newBill];
+                    setBills(updatedBills);
+                    localStorage.setItem("bills", JSON.stringify(updatedBills));
 
                     // Reset modal and input
                     setShowModal(false);
