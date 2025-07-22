@@ -122,6 +122,13 @@ export default function Home() {
 
   // Sets the budget
   const [budget, setBudget] = useState(0);
+
+  useEffect(() => {
+    const storedBudget = localStorage.getItem("userBudget");
+    if (storedBudget) {
+      setBudget(JSON.parse(storedBudget));
+    }
+  }, []);
   // Compute the total amount of bills
   const totalAmount = bills.reduce((sum, bill) => sum + Number(bill.amount), 0);
   // Compare the total amount of bills and the budget
@@ -182,7 +189,7 @@ export default function Home() {
         {/* Amount of budget */}
         <div className="text-right">
           <h4 className="text-[1em]">Budget</h4>
-          <h5 className="text-[#FE7531] text-[0.875em]">₱Amount</h5>
+          <h5 className="text-[#FE7531] text-[0.875em]">₱{budget}</h5>
         </div>
       </div>
 

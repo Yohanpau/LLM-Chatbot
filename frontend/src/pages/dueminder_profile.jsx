@@ -1,6 +1,65 @@
 import React, { useEffect, useState } from "react";
 
 function Profile() {
+  // Saves and edit the placed budget by the user
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("authenticatedUser"))
+  );
+  const [budget, setBudget] = useState(user?.budget || "");
+  const [isEditing, setIsEditing] = useState(!user?.budget); // Editable if no budget yet
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleBudgetChange = (e) => {
+    setBudget(e.target.value);
+  };
+
+  const handleBlur = () => {
+    if (budget !== "") {
+      const updatedUser = { ...user, budget };
+      localStorage.setItem("authenticatedUser", JSON.stringify(updatedUser));
+      localStorage.setItem(updatedUser.email, JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setIsEditing(false);
+    }
+  };
+
+  // Saves all the users auth information
+  //For editing full name
+  const [fullName, setFullName] = useState(user?.name || "");
+  const [isEditingName, setIsEditingName] = useState(!user?.name);
+
+  const handleNameChange = (e) => {
+    setFullName(e.target.value);
+  };
+
+  const handleNameSave = () => {
+    if (fullName.trim() !== "") {
+      const updatedUser = { ...user, name: fullName };
+      localStorage.setItem("authenticatedUser", JSON.stringify(updatedUser));
+      localStorage.setItem(updatedUser.email, JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setIsEditingName(false);
+    }
+  };
+
+  // Handles password changes 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [newPassword, setNewPassword] = useState("");
+
+  const handlePasswordChange = () => {
+    const updatedUser = { ...user, password: newPassword };
+    localStorage.setItem(user.email, JSON.stringify(updatedUser));
+    localStorage.setItem("authenticatedUser", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+    setNewPassword("");
+    setIsModalOpen(false);
+    alert("Password updated successfully!");
+  };
+
 
   return (
     <>
@@ -68,7 +127,11 @@ function Profile() {
 
         {/* Profile edit and input */}
         <form
-          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            localStorage.setItem("userBudget", JSON.stringify(budget));
+            alert("Saved!");
+          }}
           className="flex flex-col items-center justify-center gap-8 text-[#e7deda]"
         >
           <div className="flex flex-col w-[100%] text-[1.1rem] gap-[1.063em]">
@@ -85,29 +148,38 @@ function Profile() {
                   name="budget"
                   id="budget"
                   required
-                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                  value={budget}
+                  onChange={handleBudgetChange}
+                  onBlur={handleBlur}
+                  disabled={!isEditing}
+                  className={`w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] ${
+                    !isEditing ? "text-[#a1a1a1] cursor-not-allowed" : ""
+                  }`}
                 />
-                {/* Edit icon */}
-                <button
-                  className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
-                  aria-label="Edit"
-                >
-                  {/* Pencil SVG Icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                {!isEditing && (
+                  <button
+                    type="button"
+                    onClick={handleEditClick}
+                    className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200 absolute right-[4.5%] top-[17%]"
+                    aria-label="Edit"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
-                    />
-                  </svg>
-                </button>
+                    {/* Pencil SVG Icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -119,33 +191,50 @@ function Profile() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="How much is your budget?"
+                  value={fullName}
+                  onChange={handleNameChange}
+                  onBlur={handleNameSave}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleNameSave();
+                    }
+                  }}
+                  disabled={!isEditingName}
+                  placeholder="Enter your full name"
                   name="name"
                   id="name"
                   required
-                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                  className={`w-full h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] ${
+                    !isEditingName
+                      ? "text-[#a5a5a5] cursor-not-allowed"
+                      : "text-white bg-transparent"
+                  }`}
                 />
-                {/* Edit icon */}
-                <button
-                  className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
-                  aria-label="Edit"
-                >
-                  {/* Pencil SVG Icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                {!isEditingName && (
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingName(true)}
+                    className="flex items-center justify-center text-[#e7deda] hover:bg-transparent rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
+                    aria-label="Edit"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
-                    />
-                  </svg>
-                </button>
+                    {/* Pencil SVG Icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -156,11 +245,12 @@ function Profile() {
               </label>
               <input
                 type="text"
-                placeholder="Enter your email address..."
+                value={user?.email || ""}
+                readOnly
                 name="email"
                 id="email"
                 required
-                className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent text-[#a5a5a5] border-[#FE7531] border-[0.063em] cursor-not-allowed"
               />
             </div>
 
@@ -174,29 +264,64 @@ function Profile() {
                 >
                   Password
                 </label>
-                <a
-                  href=""
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  type="button"
                   className="flex w-[100%] justify-end text-[1rem] underline"
                 >
                   Change Password?
-                </a>
+                </button>
               </div>
               <div className="relative">
                 <input
                   type="password"
-                  placeholder="Enter your password..."
+                  value={user?.password || ""}
+                  readOnly
                   name="password"
                   id="password"
                   required
-                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+                  className="w-[100%] h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent text-[#a5a5a5] border-[#FE7531] border-[0.063em] cursor-not-allowed"
                 />
               </div>
             </div>
           </div>
 
-          {/* Sign Up button */}
+          {/* Modal for changing password */}
+          {/* Modal */}
+          {isModalOpen && (
+            <div className="fixed inset-0 bg-[#00000099] flex items-center justify-center z-50">
+              <div className="bg-[#111] p-6 rounded-xl w-[90%] max-w-md text-[#e7deda] relative">
+                <h2 className="text-xl font-bold mb-4 text-[#FE7531]">
+                  Change Password
+                </h2>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="Enter new password"
+                  className="w-full p-2 mb-4 rounded bg-transparent border border-[#FE7531]"
+                />
+                <div className="flex justify-end gap-3">
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handlePasswordChange}
+                    className="px-4 py-2 rounded bg-[#FE7531] font-bold"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Save button */}
           <button className="h-[2.813em] bg-[#FE7531] w-[100%] rounded-full font-bold">
-            Sign Up
+            Save
           </button>
         </form>
       </div>
