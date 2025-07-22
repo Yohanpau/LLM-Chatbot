@@ -61,7 +61,7 @@ function BillCard({ bill, onEdit, onDelete }) {
 
 // Main component
 export default function Home() {
-  // Where the bills added
+  // Bills information
   const [bills, setBills] = useState([
     {
       id: 1,
@@ -111,6 +111,21 @@ export default function Home() {
       setBills(bills.filter((bill) => bill.id !== id));
     }
   };
+
+  // State for adding bill modal
+  const [showModal, setShowModal] = useState(false);
+  const [newBill, setNewBill] = useState({
+    name: "",
+    amount: "",
+    dueDate: "",
+  });
+
+  // Sets the budget
+  const [budget, setBudget] = useState(0);
+  // Compute the total amount of bills
+  const totalAmount = bills.reduce((sum, bill) => sum + Number(bill.amount), 0);
+  // Compare the total amount of bills and the budget
+  const remaining = budget - totalAmount;
 
   return (
     <>
@@ -162,7 +177,7 @@ export default function Home() {
         {/* Total amount of bill */}
         <div className="">
           <h2 className="text-[1.5rem]/[1em]">Total Bill</h2>
-          <h1 className="text-[2rem] text-[#FE7531]">₱Amount</h1>
+          <h1 className="text-[2rem] text-[#FE7531]">₱{totalAmount}</h1>
         </div>
         {/* Amount of budget */}
         <div className="text-right">
@@ -264,7 +279,10 @@ export default function Home() {
 
         {/* Add bill button */}
         <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
-          <button className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90">
+          <button
+            onClick={() => setShowModal(true)}
+            className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6 hover:scale-90"
@@ -281,6 +299,64 @@ export default function Home() {
             </svg>
           </button>
         </div>
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+            <div className="bg-[#1a1a1a] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
+              <h2 className="text-xl font-bold mb-2">Add New Bill</h2>
+
+              <input
+                type="text"
+                placeholder="Bill Name"
+                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                value={newBill.name}
+                onChange={(e) =>
+                  setNewBill({ ...newBill, name: e.target.value })
+                }
+              />
+
+              <input
+                type="number"
+                placeholder="Amount"
+                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                value={newBill.amount}
+                onChange={(e) =>
+                  setNewBill({ ...newBill, amount: e.target.value })
+                }
+              />
+
+              <input
+                type="date"
+                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                value={newBill.dueDate}
+                onChange={(e) =>
+                  setNewBill({ ...newBill, dueDate: e.target.value })
+                }
+              />
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    // Save the bill to state
+                    setBills([...bills, newBill]);
+
+                    // Reset modal and input
+                    setShowModal(false);
+                    setNewBill({ name: "", amount: "", dueDate: "" });
+                  }}
+                  className="px-4 py-2 rounded bg-[#FE7531] hover:opacity-80"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
