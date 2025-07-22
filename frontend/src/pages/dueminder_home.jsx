@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DueMinderAIUI from "./dueminder.conversation";
 
 // Function for bill cards
 function BillCard({ bill, onEdit, onDelete }) {
@@ -61,6 +62,8 @@ function BillCard({ bill, onEdit, onDelete }) {
 
 // Main component
 export default function Home() {
+
+  const [chatbotOpen, setChatbotOpen] = useState(false);
   // Bills information
   const [bills, setBills] = useState([
     {
@@ -136,33 +139,36 @@ export default function Home() {
 
   return (
     <>
+      <DueMinderAIUI
+        isOpen={chatbotOpen}
+        onClose={() => setChatbotOpen(false)}
+      />
       {/* Upper icons */}
       <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">
         {/* AI icon */}
-        <svg
-          width="60"
-          height="60"
-          viewBox="0 0 70 70"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="hover:scale-90"
-        >
-          <path
-            d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
-            fill="#e7deda"
-          />
-
-          {/* Lower-left small star moved down and left */}
-          <path
-            d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-            fill="#e7deda"
-          />
-          {/* Upper-right small star moved up and right */}
-          <path
-            d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-            fill="#e7deda"
-          />
-        </svg>
+        <button onClick={() => setChatbotOpen(!chatbotOpen)}>
+          <svg
+            width="60"
+            height="60"
+            viewBox="0 0 70 70"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="hover:scale-90"
+          >
+            <path
+              d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
+              fill="#e7deda"
+            />
+            <path
+              d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+              fill="#e7deda"
+            />
+            <path
+              d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+              fill="#e7deda"
+            />
+          </svg>
+        </button>
 
         {/* Settings icon */}
         <Link to="/settings">
