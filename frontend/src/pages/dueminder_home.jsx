@@ -61,44 +61,15 @@ function BillCard({ bill, onEdit, onDelete }) {
 
 // Main component
 export default function Home() {
-  // Bills information
-  const [bills, setBills] = useState([
-    {
-      id: 1,
-      name: "Electricity",
-      dueDate: "02/12/25",
-      amount: 100,
-    },
-    {
-      id: 2,
-      name: "Water",
-      dueDate: "02/18/25",
-      amount: 1000,
-    },
-    {
-      id: 3,
-      name: "Rent",
-      dueDate: "02/18/25",
-      amount: 10000,
-    },
-    {
-      id: 4,
-      name: "Netflix",
-      dueDate: "02/18/25",
-      amount: 399,
-    },
-    {
-      id: 5,
-      name: "Spotify",
-      dueDate: "02/18/25",
-      amount: 75,
-    },
-  ]);
-
   // Dropdown sorts
-  const [selected, setSelected] = useState("Priority");
   const [open, setOpen] = useState(false);
-  const options = ["High", "Medium", "Low"];
+  const options = ["All", "High", "Medium", "Low"];
+
+  // Bills information
+  const [bills, setBills] = useState(() => {
+    const stored = localStorage.getItem("bills");
+    return stored ? JSON.parse(stored) : [];
+  });
 
   // Delete and edit bill
   const handleEdit = (bill) => {
@@ -118,6 +89,7 @@ export default function Home() {
     name: "",
     amount: "",
     dueDate: "",
+    priority: "All",
   });
 
   // Sets the budget
@@ -129,10 +101,23 @@ export default function Home() {
       setBudget(JSON.parse(storedBudget));
     }
   }, []);
+
   // Compute the total amount of bills
   const totalAmount = bills.reduce((sum, bill) => sum + Number(bill.amount), 0);
+
   // Compare the total amount of bills and the budget
   const remaining = budget - totalAmount;
+
+  // For priority filter
+  const [selectedPriority, setSelectedPriority] = useState("All");
+
+  const [selected, setSelected] = useState("All"); // Dropdown selection
+
+  // Filters bills base on priority
+  const filteredBills =
+    selected === "All"
+      ? bills
+      : bills.filter((bill) => bill.priority === selected);
 
   return (
     <>
@@ -178,11 +163,11 @@ export default function Home() {
           </svg>
         </Link>
       </div>
-
+      
       {/* Bill and budget */}
       <div className="text-[#e7deda] flex flex-row justify-between font-bold mb-[2.813em]">
         {/* Total amount of bill */}
-        <div className="">
+        <div>
           <h2 className="text-[1.5rem]/[1em]">Total Bill</h2>
           <h1 className="text-[2rem] text-[#FE7531]">₱{totalAmount}</h1>
         </div>
@@ -227,61 +212,57 @@ export default function Home() {
 
           {/* Dropdown */}
           <div className="relative w-[50%]">
-            <button
-              onClick={() => setOpen(!open)}
-              className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em]"
-            >
-              {selected}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 transition-transform duration-200 ${
-                  open ? "rotate-180" : ""
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <div className="relative w-32">
+              <select
+                value={selected}
+                onChange={(e) => setSelected(e.target.value)}
+                className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em] appearance-none"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {open && (
-              <ul className="absolute mt-2 w-full z-10 bg-[#1a1a1a] border border-[#464646] rounded-[0.625em] text-[#e7deda]">
                 {options.map((option) => (
-                  <li
+                  <option
                     key={option}
-                    onClick={() => {
-                      setSelected(option);
-                      setOpen(false);
-                    }}
-                    className="px-4 py-2 hover:bg-[#333] cursor-pointer"
+                    value={option}
+                    className="bg-[#1a1a1a] text-[#e7deda]"
                   >
                     {option}
-                  </li>
+                  </option>
                 ))}
-              </ul>
-            )}
+              </select>
+
+              {/* Custom dropdown arrow */}
+              <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 transition-transform duration-200 ${
+                    open ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Bills list */}
         <div className="flex flex-col gap-[0.375em] h-full overflow-auto">
           {/* First Bill */}
-          <div className="flex flex-col gap-[0.375em] h-full overflow-auto">
-            {bills.map((bill) => (
-              <BillCard
-                key={bill.id}
-                bill={bill}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            ))}
-          </div>
+          {filteredBills.map((bill) => (
+            <BillCard
+              key={bill.id}
+              bill={bill}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
         </div>
 
         {/* Add bill button */}
@@ -306,11 +287,12 @@ export default function Home() {
             </svg>
           </button>
         </div>
+
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
             <div className="bg-[#1a1a1a] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
               <h2 className="text-xl font-bold mb-2">Add New Bill</h2>
-
+              {/* Bill name input */}
               <input
                 type="text"
                 placeholder="Bill Name"
@@ -321,6 +303,7 @@ export default function Home() {
                 }
               />
 
+              {/* Bill amount */}
               <input
                 type="number"
                 placeholder="Amount"
@@ -331,14 +314,61 @@ export default function Home() {
                 }
               />
 
-              <input
-                type="date"
-                className="w-full p-2 rounded bg-transparent border border-[#464646]"
-                value={newBill.dueDate}
-                onChange={(e) =>
-                  setNewBill({ ...newBill, dueDate: e.target.value })
-                }
-              />
+              <div className="flex flex-row gap-2">
+                {/* Bill due date */}
+                <input
+                  type="date"
+                  className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                  value={newBill.dueDate}
+                  onChange={(e) =>
+                    setNewBill({ ...newBill, dueDate: e.target.value })
+                  }
+                />
+
+                <div className="relative w-[50%]">
+                  <div className="relative w-32">
+                    <select
+                      value={newBill.priority}
+                      onChange={(e) => {
+                        setNewBill({ ...newBill, priority: e.target.value });
+                        setOpen(false);
+                      }}
+                      onClick={() => setOpen(!open)}
+                      className="w-full px-4 h-[2.8em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded appearance-none"
+                    >
+                      {options.map((option) => (
+                        <option
+                          key={option}
+                          value={option}
+                          className="bg-[#1a1a1a] text-[#e7deda]"
+                        >
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+
+                    {/* Custom arrow icon */}
+                    <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-4 transition-transform duration-200 ${
+                          open ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="flex justify-end gap-2 pt-2">
                 <button
@@ -354,7 +384,12 @@ export default function Home() {
 
                     // Reset modal and input
                     setShowModal(false);
-                    setNewBill({ name: "", amount: "", dueDate: "" });
+                    setNewBill({
+                      name: "",
+                      amount: "",
+                      dueDate: "",
+                      priority: "Medium",
+                    });
                   }}
                   className="px-4 py-2 rounded bg-[#FE7531] hover:opacity-80"
                 >
