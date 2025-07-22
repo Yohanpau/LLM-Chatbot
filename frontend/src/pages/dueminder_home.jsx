@@ -1,34 +1,116 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
-    // const [loading, setLoading] = useState(true);
+// Function for bill cards
+function BillCard({ bill, onEdit, onDelete }) {
+  const [showMenu, setShowMenu] = useState(false);
 
-    // useEffect(() => {
-    //   // Simulate loading time (e.g., fetching data or assets)
-    //   const timer = setTimeout(() => {
-    //     setLoading(false);
-    //   }, 1000); // 3 seconds
+  return (
+    <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
+      <div className="flex flex-row justify-between">
+        <h3 className="text-[1.25rem] font-bold">{bill.name}</h3>
+        <div className="relative inline-block text-left">
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="p-1 rounded-full hover:bg-[#4646465e]"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              viewBox="0 0 24 24"
+              fill="#FE7531"
+            >
+              <circle cx="5" cy="12" r="2" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="19" cy="12" r="2" />
+            </svg>
+          </button>
 
-    //   return () => clearTimeout(timer);
-    // }, []);
+          {showMenu && (
+            <div className="absolute right-[0.2em] mt-[0.1em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
+              <button
+                onClick={() => {
+                  onEdit(bill);
+                  setShowMenu(false);
+                }}
+                className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => {
+                  onDelete(bill.id);
+                  setShowMenu(false);
+                }}
+                className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      <hr />
+      <div className="flex flex-row justify-between mt-2">
+        <p>Due: {bill.dueDate}</p>
+        <h3 className="text-[1.25rem] font-bold">₱{bill.amount}</h3>
+      </div>
+    </div>
+  );
+}
 
-    // if (loading) {
-    //   return (
-    //     <div className="flex flex-col items-center justify-center h-screen bg-black text-white gap-3">
-    //       <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white"></div>
-    //       <h1 className="text-xl font-bold text-[#e7deda]">
-    //         Welcome to <span></span>DueMinder
-    //       </h1>
-    //     </div>
-    //   );
-    // }
+// Main component
+export default function Home() {
+  // Where the bills added
+  const [bills, setBills] = useState([
+    {
+      id: 1,
+      name: "Electricity",
+      dueDate: "02/12/25",
+      amount: 100,
+    },
+    {
+      id: 2,
+      name: "Water",
+      dueDate: "02/18/25",
+      amount: 1000,
+    },
+    {
+      id: 3,
+      name: "Rent",
+      dueDate: "02/18/25",
+      amount: 10000,
+    },
+    {
+      id: 4,
+      name: "Netflix",
+      dueDate: "02/18/25",
+      amount: 399,
+    },
+    {
+      id: 5,
+      name: "Spotify",
+      dueDate: "02/18/25",
+      amount: 75,
+    },
+  ]);
 
-    // Dropdown
-    const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState("Priority");
+  // Dropdown sorts
+  const [selected, setSelected] = useState("Priority");
+  const [open, setOpen] = useState(false);
+  const options = ["High", "Medium", "Low"];
 
-    const options = ["High", "Medium", "Low"];
+  // Delete and edit bill
+  const handleEdit = (bill) => {
+    alert("Edit: " + bill.name);
+  };
+
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm("Delete this bill?");
+    if (confirmDelete) {
+      setBills(bills.filter((bill) => bill.id !== id));
+    }
+  };
 
   return (
     <>
@@ -168,230 +250,15 @@ function Home() {
         {/* Bills list */}
         <div className="flex flex-col gap-[0.375em] h-full overflow-auto">
           {/* First Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Electricity</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                <div className="absolute right-[0.2em] mt-[0.1em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/12/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱100</h3>
-            </div>
-          </div>
-
-          {/* Second Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">House Rent</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {/* Tinanggal ko muna para makita niyo yung amount */}
-                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div> */}
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱10000</h3>
-            </div>
-          </div>
-
-          {/* Third Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Water</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {/* Tinanggal ko muna para makita niyo yung amount */}
-                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div> */}
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱600</h3>
-            </div>
-          </div>
-
-          {/* Fourth Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Water</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {/* Tinanggal ko muna para makita niyo yung amount */}
-                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div> */}
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱600</h3>
-            </div>
-          </div>
-
-          {/* Fifth Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Water</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {/* Tinanggal ko muna para makita niyo yung amount */}
-                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div> */}
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱600</h3>
-            </div>
-          </div>
-
-          {/* Sixth Bill */}
-          <div className="flex flex-col justify-between align-middle h-[25%] w-[100%] bg-[#111111] border-[#464646] border-[0.063em] rounded-[1.25em] p-[1.1em]">
-            {/* Bill name */}
-            <div className="flex flex-row justify-between">
-              <h3 className="text-[1.25rem] font-bold">Water</h3>
-              <div className="relative inline-block text-left">
-                <button className="p-1 rounded-full hover:bg-[#4646465e]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 "
-                    viewBox="0 0 24 24"
-                    fill="#FE7531"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {/* Tinanggal ko muna para makita niyo yung amount */}
-                {/* <div className="absolute right-[0.1em] mt-[0.2em] w-[4.5em] bg-[#FE7531] rounded shadow-lg z-50">
-                  <button className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Edit
-                  </button>
-                  <button className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]">
-                    Delete
-                  </button>
-                </div> */}
-              </div>
-            </div>
-            <hr />
-            {/* Bill due date and amount */}
-            <div className="flex flex-row justify-between mt-2">
-              <p>Due: 02/20/25</p>
-              <h3 className="text-[1.25rem] font-bold">₱600</h3>
-            </div>
+          <div className="flex flex-col gap-[0.375em] h-full overflow-auto">
+            {bills.map((bill) => (
+              <BillCard
+                key={bill.id}
+                bill={bill}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))}
           </div>
         </div>
 
@@ -418,5 +285,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
