@@ -10,7 +10,10 @@
     "frontend"
   ],
   "dependencies": {
-    "react-hook-form": "^7.60.0",
-    "react-router-dom": "^7.6.3"
+    "@google/genai": "^1.10.0",
+    "cosine-similarity": "^1.0.1",
+    "dotenv": "^17.2.0",
+    "pdf-parse": "^1.1.1",
+    "uuid": "^11.1.0"
   }
 }
