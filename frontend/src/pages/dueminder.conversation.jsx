@@ -6,21 +6,32 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
   ]);
   const [input, setInput] = useState("");
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+  if (!input.trim()) return;
 
-    const newMessages = [...messages, { role: "user", text: input }];
-    setMessages(newMessages);
-    setInput("");
+  const newMessages = [...messages, { role: "user", text: input }];
+  setMessages(newMessages);
+  setInput("");
 
-    // Simulate AI response (replace with real backend call)
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { role: "ai", text: "I'm here to help with your bills!" },
-      ]);
-    }, 800);
-  };
+  try {
+    const response = await fetch("http://localhost:5000/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: input }),
+    });
+
+    const data = await response.json();
+    setMessages((prev) => [...prev, { role: "ai", text: data.reply }]);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    setMessages((prev) => [
+      ...prev,
+      { role: "ai", text: "❌ Failed to fetch response from server." },
+    ]);
+  }
+};
 
   if (!isOpen) return null;
 

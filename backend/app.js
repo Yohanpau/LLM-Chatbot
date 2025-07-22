@@ -1,16 +1,21 @@
-import { GoogleGenAI } from "@google/genai";
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import fs from "fs";
 import pdf from "pdf-parse";
-import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
+import { GoogleGenAI } from "@google/genai";
 import cosineSimilarity from "cosine-similarity";
-import readline from "readline";
 
 dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const vectorStore = [];
 
-const vectorStore = []; 
-
+// PDF embedding functions
 async function embedText(text) {
   const result = await ai.models.embedContent({
     model: "gemini-embedding-001",
@@ -18,29 +23,6 @@ async function embedText(text) {
   });
   return result.embeddings.values;
 }
-
-async function loadPDFChunks(pdfPath) {
-  const dataBuffer = fs.readFileSync(pdfPath);
-  const { text } = await pdf(dataBuffer);
-
-  if (!text || text.length === 0) {
-    console.error("❌ No text extracted from PDF.");
-    return;
-  }
-
-  console.log(`✅ Extracted ${text.length} characters from PDF`);
-
-  const chunks = splitText(text.slice(0, 4000), 200, 50);
-  for (const chunk of chunks) {
-    try {
-      const embedding = await embedText(chunk);
-      vectorStore.push({ id: uuidv4(), text: chunk, embedding });
-    } catch (e) {
-      console.error("Embedding error:", e.message);
-    }
-  }
-}
-
 
 function splitText(text, chunkSize, overlap) {
   const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
@@ -50,7 +32,7 @@ function splitText(text, chunkSize, overlap) {
   for (let i = 0; i < sentences.length; i++) {
     if ((chunk + sentences[i]).length > chunkSize) {
       chunks.push(chunk.trim());
-      i -= Math.floor(overlap / 100); 
+      i -= Math.floor(overlap / 100);
       chunk = "";
     } else {
       chunk += sentences[i];
@@ -60,9 +42,19 @@ function splitText(text, chunkSize, overlap) {
   return chunks;
 }
 
+async function loadPDFChunks(pdfPath) {
+  const dataBuffer = fs.readFileSync(pdfPath);
+  const { text } = await pdf(dataBuffer);
+  const chunks = splitText(text.slice(0, 4000), 200, 50);
+  for (const chunk of chunks) {
+    const embedding = await embedText(chunk);
+    vectorStore.push({ id: uuidv4(), text: chunk, embedding });
+  }
+}
+
 function retrieveRelevantChunks(queryEmbedding, topK = 5) {
   return vectorStore
-    .map(doc => ({
+    .map((doc) => ({
       ...doc,
       score: cosineSimilarity(doc.embedding, queryEmbedding),
     }))
@@ -73,7 +65,7 @@ function retrieveRelevantChunks(queryEmbedding, topK = 5) {
 async function answerQuery(query) {
   const queryEmbedding = await embedText(query);
   const relevantChunks = retrieveRelevantChunks(queryEmbedding);
-  const knowledge = relevantChunks.map(c => c.text).join("\n\n");
+  const knowledge = relevantChunks.map((c) => c.text).join("\n\n");
 
   const prompt = `
 You are DueMinder, a helpful assistant designed to help users with anything related to their bills, payments, subscriptions, and reminders. Answer clearly and conversationally based on what you know.
@@ -90,41 +82,23 @@ ${knowledge}
   });
 
   const parts = response.candidates?.[0]?.content?.parts;
-  const answer = parts?.map(p => p.text).join('') ?? "⚠️ No response generated.";
-
-  console.log("\n📘 Answer:\n", answer);
+  return parts?.map((p) => p.text).join("") ?? "⚠️ No response generated.";
 }
 
-function startChat() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "\n🧠 Ask me anything > ",
-  });
+// Endpoint to answer from frontend
+app.post("/api/chat", async (req, res) => {
+  const { query } = req.body;
+  try {
+    const answer = await answerQuery(query);
+    res.json({ reply: answer });
+  } catch (err) {
+    console.error("Error answering query:", err);
+    res.status(500).json({ reply: "❌ Failed to generate a response." });
+  }
+});
 
-  rl.prompt();
-
-  rl.on("line", async (line) => {
-    const query = line.trim();
-    if (query.toLowerCase() === "exit") {
-      rl.close();
-      return;
-    }
-
-    await answerQuery(query);
-    rl.prompt();
-  });
-
-  rl.on("close", () => {
-    console.log("👋 Exiting chat. Goodbye!");
-    process.exit(0);
-  });
-}
-
-
-
-(async () => {
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, async () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
   await loadPDFChunks("./Dueminder.pdf");
-  startChat(); 
-})();
-
+});
