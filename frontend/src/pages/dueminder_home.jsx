@@ -62,7 +62,7 @@ function BillCard({ bill, onEdit, onDelete }) {
 
 // Main component
 export default function Home() {
-
+  // AI
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
   // Dropdown sorts
@@ -127,6 +127,7 @@ export default function Home() {
 
   return (
     <>
+      {/* AI */}
       <DueMinderAIUI
         isOpen={chatbotOpen}
         onClose={() => setChatbotOpen(false)}

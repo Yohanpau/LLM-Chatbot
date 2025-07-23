@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
+import DueMinderAIUI from "./dueminder.conversation";
 
 function Settings() {
+  // AI
+  const [chatbotOpen, setChatbotOpen] = useState(false);
 
   const [isOn, setIsOn] = useState(false);
 
   return (
     <>
+      {/* AI */}
+      <DueMinderAIUI
+        isOpen={chatbotOpen}
+        onClose={() => setChatbotOpen(false)}
+      />
+
       {/* Upper icons */}
       <div className="flex flex-row justify-between align-middle w-[100%] mt-[2em] mb-[1em] text-white">
+        {/* Back to bills */}
         <a
           href="/home"
           className="flex flex-row align-middle justify-center w-fit h-fit gap-1"
@@ -28,30 +38,31 @@ function Settings() {
           </svg>
           <p className="mt-[-0.2em]">Back to my bills</p>
         </a>
-        <svg
-          width="60"
-          height="60"
-          viewBox="0 0 70 70"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="active:scale-90 transition-transform duration-300 ease-in-out"
-        >
-          <path
-            d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
-            fill="#e7deda"
-          />
 
-          {/* Lower-left small star moved down and left */}
-          <path
-            d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-            fill="#e7deda"
-          />
-          {/* Upper-right small star moved up and right */}
-          <path
-            d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-            fill="#e7deda"
-          />
-        </svg>
+        {/* AI icon */}
+        <button onClick={() => setChatbotOpen(!chatbotOpen)}>
+          <svg
+            width="60"
+            height="60"
+            viewBox="0 0 70 70"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="active:scale-90 transition-transform duration-300 ease-in-out"
+          >
+            <path
+              d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
+              fill="#FFF6F2"
+            />
+            <path
+              d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+              fill="#FFF6F2"
+            />
+            <path
+              d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
+              fill="#FFF6F2"
+            />
+          </svg>
+        </button>
       </div>
 
       {/* Settings list */}
