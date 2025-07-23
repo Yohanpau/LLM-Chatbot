@@ -13,7 +13,7 @@ function BillCard({ bill, onEdit, onDelete }) {
         <div className="relative inline-block text-left">
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="p-1 rounded-full hover:bg-[#4646465e]"
+            className="p-1 rounded-full active:bg-[#4646465e]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ function BillCard({ bill, onEdit, onDelete }) {
                   onEdit(bill);
                   setShowMenu(false);
                 }}
-                className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+                className="w-full px-3 py-1 text-left active:bg-gray-100 active:rounded active:text-[#FE7531]"
               >
                 Edit
               </button>
@@ -43,7 +43,7 @@ function BillCard({ bill, onEdit, onDelete }) {
                   onDelete(bill.id);
                   setShowMenu(false);
                 }}
-                className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+                className="w-full px-3 py-1 text-left text-[#e7deda] active:bg-gray-100 active:rounded active:text-[#FE7531]"
               >
                 Delete
               </button>
@@ -141,7 +141,7 @@ export default function Home() {
             viewBox="0 0 70 70"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="hover:scale-90"
+            className="active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <path
               d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
@@ -166,7 +166,7 @@ export default function Home() {
             height="40"
             viewBox="0 0 30 30"
             fill="#e7deda"
-            className="hover:scale-90"
+            className="active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.11,-0.61l-1.92,-3.32c-0.12,-0.21 -0.37,-0.3 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94l-0.36,-2.54c-0.04,-0.23 -0.23,-0.4 -0.47,-0.4h-3.84c-0.24,0 -0.44,0.17 -0.47,0.4l-0.36,2.54c-0.59,0.24 -1.13,0.56 -1.62,0.94l-2.39,-0.96c-0.22,-0.09 -0.47,0.01 -0.59,0.22l-1.92,3.32c-0.12,0.21 -0.07,0.47 0.11,0.61l2.03,1.58c-0.05,0.3 -0.07,0.62 -0.07,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.4 -0.11,0.61l1.92,3.32c0.12,0.21 0.37,0.3 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.03,0.23 0.23,0.4 0.47,0.4h3.84c0.24,0 0.44,-0.17 0.47,-0.4l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.09 0.47,-0.01 0.59,-0.22l1.92,-3.32c0.12,-0.21 0.07,-0.47 -0.11,-0.61l-2.03,-1.58zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5s3.5,1.57 3.5,3.5s-1.57,3.5 -3.5,3.5z" />
           </svg>
@@ -278,11 +278,11 @@ export default function Home() {
         <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90"
+            className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 hover:scale-90"
+              className="w-6 h-6 active:scale-90 transition-transform duration-300 ease-in-out"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -382,7 +382,7 @@ export default function Home() {
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
+                  className="px-4 py-2 rounded bg-gray-600 active:bg-gray-700"
                 >
                   Cancel
                 </button>
@@ -405,7 +405,7 @@ export default function Home() {
                       priority: "Medium",
                     });
                   }}
-                  className="px-4 py-2 rounded bg-[#FE7531] hover:opacity-80"
+                  className="px-4 py-2 rounded bg-[#FE7531] active:opacity-80"
                 >
                   Add
                 </button>

@@ -34,7 +34,7 @@ function Settings() {
           viewBox="0 0 70 70"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="hover:scale-90"
+          className="active:scale-90 transition-transform duration-300 ease-in-out"
         >
           <path
             d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
@@ -68,7 +68,10 @@ function Settings() {
                 <h3 className="text-[1.25rem] font-bold">Profile</h3>
                 <p className="text-[0.75rem]">Edit personal information</p>
               </div>
-              <a href="/profile" className="flex items-center justify-center px-4 py-2 text-[#e7deda] rounded-full hover:scale-90">
+              <a
+                href="/profile"
+                className="flex items-center justify-center px-4 py-2 text-[#e7deda] rounded-full active:scale-90"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-5 h-5"

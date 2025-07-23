@@ -91,7 +91,7 @@ function Profile() {
           viewBox="0 0 70 70"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="hover:scale-90"
+          className="active:scale-90 transition-transform duration-300 ease-in-out"
         >
           <path
             d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
@@ -160,7 +160,7 @@ function Profile() {
                   <button
                     type="button"
                     onClick={handleEditClick}
-                    className="flex items-center justify-center text-[#e7deda] hover:bg-[#5050505e] rounded-full p-1 hover:text-[#e7deda] transition duration-200 absolute right-[4.5%] top-[17%]"
+                    className="flex items-center justify-center text-[#e7deda] active:bg-[#5050505e] rounded-full p-1 active:text-[#e7deda] transition-transform duration-300 ease-in-out absolute right-[4.5%] top-[17%]"
                     aria-label="Edit"
                   >
                     {/* Pencil SVG Icon */}
@@ -215,7 +215,7 @@ function Profile() {
                   <button
                     type="button"
                     onClick={() => setIsEditingName(true)}
-                    className="flex items-center justify-center text-[#e7deda] hover:bg-transparent rounded-full p-1 hover:text-[#e7deda] transition duration-200  absolute right-[4.5%] top-[17%]"
+                    className="flex items-center justify-center text-[#e7deda] active:bg-transparent rounded-full p-1 active:text-[#e7deda] transition-transform duration-300 ease-in-out absolute right-[4.5%] top-[17%]"
                     aria-label="Edit"
                   >
                     {/* Pencil SVG Icon */}
@@ -304,7 +304,7 @@ function Profile() {
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
+                    className="px-4 py-2 rounded bg-gray-600 active:bg-gray-700"
                   >
                     Cancel
                   </button>
