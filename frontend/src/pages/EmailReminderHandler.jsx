@@ -1,58 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import emailjs from "emailjs-com";
 
 function EmailReminderHandler() {
-  const [bills, setBills] = useState([]);
-
   useEffect(() => {
-    const storedBills = localStorage.getItem("bills");
-    if (storedBills) {
-      setBills(JSON.parse(storedBills));
-    }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const today = new Date().toISOString().split("T")[0];
+    const sendReminders = () => {
+      const storedBills = localStorage.getItem("bills");
       const notificationsAllowed = JSON.parse(
         localStorage.getItem("notificationsEnabled")
       );
       const storedEmail = localStorage.getItem("userEmail");
+      const today = new Date().toISOString().split("T")[0];
 
-      if (notificationsAllowed && storedEmail && bills.length > 0) {
-        bills.forEach((bill) => {
-          const daysLeft =
-            (new Date(bill.dueDate) - new Date(today)) / (1000 * 60 * 60 * 24);
-          const key = `reminderSent-${bill.name}-${bill.dueDate}`;
+      if (!storedBills || !notificationsAllowed || !storedEmail) return;
 
-          // If due in 2 days or less and not sent before
-          if (daysLeft <= 2 && !localStorage.getItem(key)) {
-            const templateParams = {
-              email: storedEmail,
-              bill_name: bill.name,
-              due_date: bill.dueDate,
-              amount: bill.amount,
-            };
+      const bills = JSON.parse(storedBills);
 
-            emailjs
-              .send(
-                "service_p4kh83e",
-                "template_knq28ca",
-                templateParams,
-                "muDJ0JS2U8D5QQgZ_"
-              )
-              .then(() => {
-                console.log("Reminder sent:", bill.name);
-                localStorage.setItem(key, "true"); // Mark as sent
-              })
-              .catch((err) => console.error("Email error:", err));
-          }
-        });
-      }
-    }, 60 * 1000); // every 1 minute
+      bills.forEach((bill) => {
+        const daysLeft =
+          (new Date(bill.dueDate) - new Date(today)) / (1000 * 60 * 60 * 24);
+        const key = `reminderSent-${bill.name}-${bill.dueDate}`;
+
+        if (daysLeft <= 2 && !localStorage.getItem(key)) {
+          console.log(
+            `📤 Processing email for: ${bill.name} (Due: ${bill.dueDate})`
+          );
+
+          const templateParams = {
+            email: storedEmail,
+            bill_name: bill.name,
+            due_date: bill.dueDate,
+            amount: bill.amount,
+          };
+
+          emailjs
+            .send(
+              "service_p4kh83e",
+              "template_knq28ca",
+              templateParams,
+              "muDJ0JS2U8D5QQgZ_"
+            )
+            .then(() => {
+              console.log(`✅ Reminder sent: ${bill.name}`);
+              localStorage.setItem(key, "true");
+            })
+            .catch((err) => console.error("❌ Email error:", err));
+        }
+      });
+    };
+
+    // Run immediately and then every 1 minute
+    sendReminders();
+    const interval = setInterval(sendReminders, 10 * 1000);
 
     return () => clearInterval(interval);
-  }, [bills]);
+  }, []);
 
   return null;
 }
