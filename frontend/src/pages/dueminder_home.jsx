@@ -306,7 +306,7 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Bill Name"
-                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.name}
                 onChange={(e) =>
                   setNewBill({ ...newBill, name: e.target.value })
@@ -317,7 +317,7 @@ export default function Home() {
               <input
                 type="number"
                 placeholder="Amount"
-                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.amount}
                 onChange={(e) =>
                   setNewBill({ ...newBill, amount: e.target.value })
@@ -328,7 +328,7 @@ export default function Home() {
                 {/* Bill due date */}
                 <input
                   type="date"
-                  className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                  className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
@@ -344,7 +344,7 @@ export default function Home() {
                         setOpen(false);
                       }}
                       onClick={() => setOpen(!open)}
-                      className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none"
+                      className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none outline-none"
                     >
                       {options.map((option) => (
                         <option
@@ -380,13 +380,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded bg-gray-600 active:bg-gray-700"
-                >
-                  Cancel
-                </button>
+              <div className="flex justify-center gap-2 pt-2">
                 <button
                   onClick={() => {
                     const billWithId = {
@@ -406,9 +400,15 @@ export default function Home() {
                       priority: "Medium",
                     });
                   }}
-                  className="px-4 py-2 rounded bg-[#FE7531] active:opacity-80"
+                  className="px-[3.35rem] py-2 bg-[#FE7531] active:opacity-80 rounded-full"
                 >
                   Add
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-[3.35rem] py-2 bg-transparent active:bg-gray-700 border-[#464646] border-[0.063em] rounded-full"
+                >
+                  Cancel
                 </button>
               </div>
             </div>
