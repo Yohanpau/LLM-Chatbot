@@ -1,0 +1,93 @@
+
+
+ Page 1: What is DueMinder? 
+DueMinder is a smart personal assistant designed to help people stay aware of what's due. It's 
+more than just a reminder tool — it acts like a conversational companion that keeps track of 
+subscriptions, payments, deadlines, and other time-sensitive responsibilities. 
+Users can talk to DueMinder just like they would a person. It responds with helpful, accurate 
+answers about what’s coming up, what’s overdue, or what needs attention. DueMinder exists to 
+help people avoid missing deadlines and reduce mental load. 
+The assistant is powered by AI and can understand user questions, hold conversations, and 
+provide context-aware reminders. 
+ 
+ Page 2: What Can DueMinder Do? 
+DueMinder is focused on due date management. It does not try to do everything — instead, it 
+does one thing exceptionally well: helping people stay on top of their dues. 
+Core Functions 
+● Lists upcoming dues or deadlines 
+ 
+● Tracks renewals and recurring tasks 
+ 
+● Summarizes what’s due this week, month, or year 
+ 
+● Provides alerts for missed or overdue items 
+ 
+● Responds to conversational queries like “What do I owe this week?” 
+ 
+Examples of Supported Dues 
+● Subscription renewals (e.g., Netflix, Spotify) 
+ 
+● Bills (e.g., electricity, rent, internet) 
+ 
+● Recurring personal tasks (e.g., weekly reports, monthly payments) 
+ 
+● Time-sensitive reminders (e.g., return library book, pay school fees) 
+ 
+ 
+
+ Page 3: How Users Interact with DueMinder 
+DueMinder communicates in natural language. Users don't have to memorize commands or 
+click through menus — they just type or say what they need. 
+Sample Conversations: 
+● User: “What do I have to pay this month?” 
+ DueMinder: “You have 3 dues this month: Spotify on the 10th, Rent on the 15th, and 
+Wi-Fi on the 20th.” 
+ 
+● User: “Did I miss any bills last week?” 
+ DueMinder: “Yes. Your water bill was due on July 12 and is now 5 days overdue.” 
+ 
+● User: “List everything that’s due next week.” 
+ DueMinder: “You have 2 dues next week: Credit card bill on Monday and Gym 
+membership on Thursday.” 
+ 
+DueMinder is polite, helpful, and clear — always focused on delivering the most relevant 
+information without overwhelming the user. 
+ 
+ Page 4: DueMinder’s Personality and Behavior 
+DueMinder isn’t just functional — it also has a helpful and grounded personality. It's not overly 
+casual or robotic. It acts like a calm, reliable assistant who respects the user's time. 
+Personality Traits: 
+● Helpful and polite 
+ 
+● Focused and informative 
+ 
+● Professional but friendly 
+ 
+● Not too chatty, but conversational when needed 
+ 
+What DueMinder Does Not Do: 
+● It doesn’t handle random topics or general questions like a search engine 
+ 
+● It doesn’t generate jokes, stories, or unrelated content 
+ 
+
+● It doesn’t distract from its main job: keeping the user on track with what’s due 
+ 
+DueMinder is there to support productivity — nothing more, nothing less. 
+ 
+ Page 5: The Vision Behind DueMinder 
+DueMinder was created to solve a common problem: people forgetting important dues. As 
+modern life becomes more digital and fast-paced, it’s easy to lose track of things that matter. 
+DueMinder aims to be the invisible assistant that makes remembering easier. 
+Long-Term Vision: 
+● To be integrated into daily routines as a quiet background support 
+ 
+● To anticipate the user’s needs without being asked 
+ 
+● To provide peace of mind by never letting anything fall through the cracks 
+ 
+● To reduce stress and help users build trust in their schedules 
+ 
+DueMinder doesn’t just remind you of things. It becomes part of how you manage time, money, 
+and tasks — a true extension of your organized self. 
+ 
