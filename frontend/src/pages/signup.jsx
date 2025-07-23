@@ -26,11 +26,13 @@ function SignUp() {
       };
       localStorage.setItem(data.email, JSON.stringify(userData));
       localStorage.setItem("authenticatedUser", JSON.stringify(userData));
+      localStorage.setItem("userEmail", data.email);
       console.log(data.name + " has been successfully registered");
       alert("Success!");
       navigate("/");
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

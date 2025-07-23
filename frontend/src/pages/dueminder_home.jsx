@@ -65,9 +65,19 @@ export default function Home() {
   // AI
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
-  // Dropdown sorts
+  //Dropdown sorts
   const [open, setOpen] = useState(false);
   const options = ["All", "High", "Medium", "Low"];
+
+  //Editing
+  const [editingBill, setEditingBill] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editBill, setEditBill] = useState({
+    name: "",
+    amount: "",
+    dueDate: "",
+    priority: "All",
+  });
 
   // Bills information
   const [bills, setBills] = useState(() => {
@@ -77,7 +87,38 @@ export default function Home() {
 
   // Delete and edit bill
   const handleEdit = (bill) => {
-    alert("Edit: " + bill.name);
+    setEditingBill(bill);
+    setNewBill({
+      name: bill.name,
+      amount: bill.amount,
+      dueDate: bill.dueDate,
+      priority: bill.priority,
+    });
+    setShowEditModal(true);
+  };
+
+  const closeModal = () => {
+    setShowEditModal(false);
+    setEditingBill(null);
+    setNewBill({
+      name: "",
+      amount: "",
+      dueDate: "",
+      priority: "All",
+    });
+  };
+
+  const handleSubmit = () => {
+    if (editingBill) {
+      // Editing existing bill
+      const updatedBills = bills.map((bill) =>
+        bill.id === editingBill.id ? { ...editingBill, ...newBill } : bill
+      );
+      setBills(updatedBills);
+      localStorage.setItem("bills", JSON.stringify(updatedBills));
+      setEditingBill(null);
+      setShowEditModal(false);
+    }
   };
 
   const handleDelete = (id) => {
@@ -131,6 +172,7 @@ export default function Home() {
     return matchesPriority && matchesSearch;
   });
 
+
   return (
     <>
       {/* AI */}
@@ -138,6 +180,63 @@ export default function Home() {
         isOpen={chatbotOpen}
         onClose={() => setChatbotOpen(false)}
       />
+      {/* EDIT MODAL */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-[#1c1c1c] p-6 rounded-lg w-[90%] max-w-md text-white">
+            <h2 className="text-xl font-bold mb-4">
+              Edit Bill
+            </h2>
+
+            <input
+              type="text"
+              placeholder="Bill Name"
+              value={newBill.name}
+              onChange={(e) => setNewBill({ ...newBill, name: e.target.value })}
+              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
+            />
+            <input
+              type="number"
+              placeholder="Amount"
+              value={newBill.amount}
+              onChange={(e) => setNewBill({ ...newBill, amount: e.target.value })}
+              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
+            />
+            <input
+              type="date"
+              value={newBill.dueDate}
+              onChange={(e) => setNewBill({ ...newBill, dueDate: e.target.value })}
+              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
+            />
+            <select
+              value={newBill.priority}
+              onChange={(e) => setNewBill({ ...newBill, priority: e.target.value })}
+              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-4"
+            >
+              {options.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt}
+                </option>
+              ))}
+            </select>
+
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="px-4 py-2 bg-[#FE7531] rounded hover:bg-[#e86b2d]"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Upper icons */}
       <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">
         {/* AI icon */}
@@ -252,9 +351,8 @@ export default function Home() {
               <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 transition-transform duration-200 ${
-                    open ? "rotate-180" : ""
-                  }`}
+                  className={`h-4 transition-transform duration-200 ${open ? "rotate-180" : ""
+                    }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -374,9 +472,8 @@ export default function Home() {
                     <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={`h-4 transition-transform duration-200 ${
-                          open ? "rotate-180" : ""
-                        }`}
+                        className={`h-4 transition-transform duration-200 ${open ? "rotate-180" : ""
+                          }`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
