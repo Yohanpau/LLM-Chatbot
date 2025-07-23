@@ -47,9 +47,12 @@ function Settings() {
     }
   }, [bills]);
 
+  console.log("userEmail state:", userEmail);
+
   const sendReminderEmail = (bill, email) => {
+    console.log("Sending to:", email);
     const templateParams = {
-      to_email: email,
+      email: userEmail,
       bill_name: bill.name,
       due_date: bill.dueDate,
       amount: bill.amount,
@@ -59,6 +62,19 @@ function Settings() {
       .then((res) => console.log("Email sent!", res))
       .catch((err) => console.error("Email error:", err));
   };
+
+  
+    useEffect(() => {
+      console.log("Loaded bills:", bills);
+    }, [bills]);
+  
+    useEffect(() => {
+      console.log("Notifications enabled:", isOn);
+    }, [isOn]);
+  
+    useEffect(() => {
+      console.log("Raw stored email:", localStorage.getItem("userEmail"));
+    }, []);
 
   return (
     <>
