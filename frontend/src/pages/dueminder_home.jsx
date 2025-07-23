@@ -13,7 +13,7 @@ function BillCard({ bill, onEdit, onDelete }) {
         <div className="relative inline-block text-left">
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="p-1 rounded-full hover:bg-[#4646465e]"
+            className="p-1 rounded-full active:bg-[#464646]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ function BillCard({ bill, onEdit, onDelete }) {
                   onEdit(bill);
                   setShowMenu(false);
                 }}
-                className="w-full px-3 py-1 text-left hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+                className="w-full px-3 py-1 text-left active:bg-gray-100 active:rounded active:text-[#FE7531]"
               >
                 Edit
               </button>
@@ -43,7 +43,7 @@ function BillCard({ bill, onEdit, onDelete }) {
                   onDelete(bill.id);
                   setShowMenu(false);
                 }}
-                className="w-full px-3 py-1 text-left text-[#e7deda] hover:bg-gray-100 hover:rounded hover:text-[#FE7531]"
+                className="w-full px-3 py-1 text-left text-[#FFF6F2] active:bg-gray-100 active:rounded active:text-[#FE7531]"
               >
                 Delete
               </button>
@@ -62,7 +62,7 @@ function BillCard({ bill, onEdit, onDelete }) {
 
 // Main component
 export default function Home() {
-
+  // AI
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
   // Dropdown sorts
@@ -127,6 +127,7 @@ export default function Home() {
 
   return (
     <>
+      {/* AI */}
       <DueMinderAIUI
         isOpen={chatbotOpen}
         onClose={() => setChatbotOpen(false)}
@@ -141,19 +142,19 @@ export default function Home() {
             viewBox="0 0 70 70"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="hover:scale-90"
+            className="active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <path
               d="M33 14c3 10 4.5 10 12 12-7.5 2-9 2-12 12-3-10-4.5-10-12-12 7.5-2 9-2 12-12z"
-              fill="#e7deda"
+              fill="#FFF6F2"
             />
             <path
               d="M18 36c1.2 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-              fill="#e7deda"
+              fill="#FFF6F2"
             />
             <path
               d="M48 8c0.6 4 1.6 3.8 5.2 5.2-3.6 1.4-4 1.4-5.2 5.2-1.2-3.8-1.6-3.8-5.2-5.2 3.6-1.4 4-1.4 5.2-5.2z"
-              fill="#e7deda"
+              fill="#FFF6F2"
             />
           </svg>
         </button>
@@ -165,8 +166,8 @@ export default function Home() {
             width="40"
             height="40"
             viewBox="0 0 30 30"
-            fill="#e7deda"
-            className="hover:scale-90"
+            fill="#FFF6F2"
+            className="active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.32 -0.02,-0.64 -0.07,-0.94l2.03,-1.58c0.18,-0.14 0.23,-0.41 0.11,-0.61l-1.92,-3.32c-0.12,-0.21 -0.37,-0.3 -0.59,-0.22l-2.39,0.96c-0.5,-0.38 -1.03,-0.7 -1.62,-0.94l-0.36,-2.54c-0.04,-0.23 -0.23,-0.4 -0.47,-0.4h-3.84c-0.24,0 -0.44,0.17 -0.47,0.4l-0.36,2.54c-0.59,0.24 -1.13,0.56 -1.62,0.94l-2.39,-0.96c-0.22,-0.09 -0.47,0.01 -0.59,0.22l-1.92,3.32c-0.12,0.21 -0.07,0.47 0.11,0.61l2.03,1.58c-0.05,0.3 -0.07,0.62 -0.07,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.4 -0.11,0.61l1.92,3.32c0.12,0.21 0.37,0.3 0.59,0.22l2.39,-0.96c0.5,0.38 1.03,0.7 1.62,0.94l0.36,2.54c0.03,0.23 0.23,0.4 0.47,0.4h3.84c0.24,0 0.44,-0.17 0.47,-0.4l0.36,-2.54c0.59,-0.24 1.13,-0.56 1.62,-0.94l2.39,0.96c0.22,0.09 0.47,-0.01 0.59,-0.22l1.92,-3.32c0.12,-0.21 0.07,-0.47 -0.11,-0.61l-2.03,-1.58zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5s3.5,1.57 3.5,3.5s-1.57,3.5 -3.5,3.5z" />
           </svg>
@@ -174,7 +175,7 @@ export default function Home() {
       </div>
 
       {/* Bill and budget */}
-      <div className="text-[#e7deda] flex flex-row justify-between font-bold mb-[2.813em]">
+      <div className="text-[#FFF6F2] flex flex-row justify-between font-bold mb-[2.813em]">
         {/* Total amount of bill */}
         <div>
           <h2 className="text-[1.5rem]/[1em]">Total Bill</h2>
@@ -188,7 +189,7 @@ export default function Home() {
       </div>
 
       {/* Bills section */}
-      <div className="text-[#e7deda] flex flex-col gap-[0.6em] w-[100%] h-[69vh]">
+      <div className="text-[#FFF6F2] flex flex-col gap-[0.6em] w-[100%] h-[69vh]">
         {/* Title */}
         <h2 className="text-[1.5em] font-bold">My Bills</h2>
         {/* Search and dropdown */}
@@ -200,7 +201,7 @@ export default function Home() {
               placeholder="Search your bill here..."
               name="search"
               id="search"
-              className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
+              className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em] outline-[#FFF6F2]"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +209,7 @@ export default function Home() {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#e7deda"
+              stroke="#FFF6F2"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -225,13 +226,14 @@ export default function Home() {
               <select
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
-                className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded-[0.625em] appearance-none"
+                className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded-[0.625em] appearance-none outline-none"
               >
                 {options.map((option) => (
+                  // Dropdown options
                   <option
                     key={option}
                     value={option}
-                    className="bg-[#1a1a1a] text-[#e7deda]"
+                    className="bg-[#464646] text-[#FFF6F2]"
                   >
                     {option}
                   </option>
@@ -278,11 +280,11 @@ export default function Home() {
         <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full hover:scale-90"
+            className="flex items-center gap-2 px-4 py-4 bg-[#FE7531] rounded-full active:scale-90 transition-transform duration-300 ease-in-out"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 hover:scale-90"
+              className="w-6 h-6 active:scale-90 transition-transform duration-300 ease-in-out"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -298,14 +300,14 @@ export default function Home() {
         </div>
 
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-            <div className="bg-[#1a1a1a] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
+          <div className="fixed inset-0 bg-[#010101] bg-opacity-70 flex justify-center items-center z-50">
+            <div className="bg-[#111111] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
               <h2 className="text-xl font-bold mb-2">Add New Bill</h2>
               {/* Bill name input */}
               <input
                 type="text"
                 placeholder="Bill Name"
-                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.name}
                 onChange={(e) =>
                   setNewBill({ ...newBill, name: e.target.value })
@@ -316,7 +318,7 @@ export default function Home() {
               <input
                 type="number"
                 placeholder="Amount"
-                className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.amount}
                 onChange={(e) =>
                   setNewBill({ ...newBill, amount: e.target.value })
@@ -327,7 +329,7 @@ export default function Home() {
                 {/* Bill due date */}
                 <input
                   type="date"
-                  className="w-full p-2 rounded bg-transparent border border-[#464646]"
+                  className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
@@ -343,13 +345,13 @@ export default function Home() {
                         setOpen(false);
                       }}
                       onClick={() => setOpen(!open)}
-                      className="w-full px-4 h-[2.8em] bg-transparent text-[#e7deda] border-[#464646] border-[0.063em] rounded appearance-none"
+                      className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none outline-none"
                     >
                       {options.map((option) => (
                         <option
                           key={option}
                           value={option}
-                          className="bg-[#1a1a1a] text-[#e7deda]"
+                          className="bg-[#464646] text-[#FFF6F2]"
                         >
                           {option}
                         </option>
@@ -379,13 +381,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
-                >
-                  Cancel
-                </button>
+              <div className="flex justify-center gap-2 pt-2">
                 <button
                   onClick={() => {
                     const billWithId = {
@@ -405,9 +401,15 @@ export default function Home() {
                       priority: "Medium",
                     });
                   }}
-                  className="px-4 py-2 rounded bg-[#FE7531] hover:opacity-80"
+                  className="px-[3.35rem] py-2 bg-[#FE7531] active:opacity-80 rounded-full"
                 >
                   Add
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-[3.35rem] py-2 bg-transparent active:bg-gray-700 border-[#464646] border-[0.063em] rounded-full"
+                >
+                  Cancel
                 </button>
               </div>
             </div>
