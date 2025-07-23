@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DueMinderAIUI from "./dueminder.conversation";
+import EmailReminderHandler from "./EmailReminderHandler";
 
 // Function for bill cards
 function BillCard({ bill, onEdit, onDelete }) {
@@ -175,6 +176,7 @@ export default function Home() {
 
   return (
     <>
+      <EmailReminderHandler />
       {/* AI */}
       <DueMinderAIUI
         isOpen={chatbotOpen}
@@ -184,9 +186,7 @@ export default function Home() {
       {showEditModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-[#1c1c1c] p-6 rounded-lg w-[90%] max-w-md text-white">
-            <h2 className="text-xl font-bold mb-4">
-              Edit Bill
-            </h2>
+            <h2 className="text-xl font-bold mb-4">Edit Bill</h2>
 
             <input
               type="text"
@@ -199,18 +199,24 @@ export default function Home() {
               type="number"
               placeholder="Amount"
               value={newBill.amount}
-              onChange={(e) => setNewBill({ ...newBill, amount: e.target.value })}
+              onChange={(e) =>
+                setNewBill({ ...newBill, amount: e.target.value })
+              }
               className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
             />
             <input
               type="date"
               value={newBill.dueDate}
-              onChange={(e) => setNewBill({ ...newBill, dueDate: e.target.value })}
+              onChange={(e) =>
+                setNewBill({ ...newBill, dueDate: e.target.value })
+              }
               className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
             />
             <select
               value={newBill.priority}
-              onChange={(e) => setNewBill({ ...newBill, priority: e.target.value })}
+              onChange={(e) =>
+                setNewBill({ ...newBill, priority: e.target.value })
+              }
               className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-4"
             >
               {options.map((opt) => (
@@ -351,8 +357,9 @@ export default function Home() {
               <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 transition-transform duration-200 ${open ? "rotate-180" : ""
-                    }`}
+                  className={`h-4 transition-transform duration-200 ${
+                    open ? "rotate-180" : ""
+                  }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -471,8 +478,9 @@ export default function Home() {
                     <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={`h-4 transition-transform duration-200 ${open ? "rotate-180" : ""
-                          }`}
+                        className={`h-4 transition-transform duration-200 ${
+                          open ? "rotate-180" : ""
+                        }`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
