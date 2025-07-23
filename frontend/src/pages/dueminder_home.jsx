@@ -182,19 +182,20 @@ export default function Home() {
         isOpen={chatbotOpen}
         onClose={() => setChatbotOpen(false)}
       />
-      {/* EDIT MODAL */}
+      {/* Edit Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-[#1c1c1c] p-6 rounded-lg w-[90%] max-w-md text-white">
-            <h2 className="text-xl font-bold mb-4">Edit Bill</h2>
+        <div className="fixed inset-0 bg-[#010101] bg-opacity-70 flex justify-center items-center z-50">
+          <div className="bg-[#111111] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
+            <h2 className="text-xl font-bold mb-2">Edit Bill</h2>
 
             <input
               type="text"
               placeholder="Bill Name"
               value={newBill.name}
               onChange={(e) => setNewBill({ ...newBill, name: e.target.value })}
-              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
+              className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
+
             <input
               type="number"
               placeholder="Amount"
@@ -202,42 +203,75 @@ export default function Home() {
               onChange={(e) =>
                 setNewBill({ ...newBill, amount: e.target.value })
               }
-              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
+              className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
-            <input
-              type="date"
-              value={newBill.dueDate}
-              onChange={(e) =>
-                setNewBill({ ...newBill, dueDate: e.target.value })
-              }
-              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-2"
-            />
-            <select
-              value={newBill.priority}
-              onChange={(e) =>
-                setNewBill({ ...newBill, priority: e.target.value })
-              }
-              className="w-full p-2 rounded bg-[#2c2c2c] text-white mb-4"
-            >
-              {options.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
 
-            <div className="flex justify-end space-x-2">
-              <button
-                onClick={closeModal}
-                className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500"
-              >
-                Cancel
-              </button>
+            <div className="flex flex-row gap-2">
+              <input
+                type="date"
+                value={newBill.dueDate}
+                onChange={(e) =>
+                  setNewBill({ ...newBill, dueDate: e.target.value })
+                }
+                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+              />
+
+              <div className="relative w-[50%]">
+                <div className="relative w-32">
+                  <select
+                    value={newBill.priority}
+                    onChange={(e) => {
+                      setNewBill({ ...newBill, priority: e.target.value });
+                      setOpen(false);
+                    }}
+                    onClick={() => setOpen(!open)}
+                    className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none outline-none"
+                  >
+                    {options.map((option) => (
+                      <option
+                        key={option}
+                        value={option}
+                        className="bg-[#464646] text-[#FFF6F2]"
+                      >
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+
+                  <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`h-4 transition-transform duration-200 ${
+                        open ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center gap-2 pt-2">
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-[#FE7531] rounded hover:bg-[#e86b2d]"
+                className="px-[3.35rem] py-2 bg-[#FE7531] active:opacity-80 rounded-full"
               >
                 Update
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-[3.35rem] py-2 bg-transparent active:bg-gray-700 border-[#464646] border-[0.063em] rounded-full"
+              >
+                Cancel
               </button>
             </div>
           </div>
@@ -415,6 +449,7 @@ export default function Home() {
           </button>
         </div>
 
+        {/* Adding new bill modal */}
         {showModal && (
           <div className="fixed inset-0 bg-[#010101] bg-opacity-70 flex justify-center items-center z-50">
             <div className="bg-[#111111] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
