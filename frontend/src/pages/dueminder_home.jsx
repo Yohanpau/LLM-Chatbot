@@ -128,9 +128,10 @@ export default function Home() {
   return (
     <>
       <DueMinderAIUI
-        isOpen={chatbotOpen}
-        onClose={() => setChatbotOpen(false)}
-        bills={bills}
+      isOpen={chatbotOpen}
+      onClose={() => setChatbotOpen(false)}
+      bills={bills}
+      budget={Number(budget)} 
       />
       {/* Upper icons */}
       <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">

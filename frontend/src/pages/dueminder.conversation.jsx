@@ -1,10 +1,40 @@
 import React, { useState } from "react";
 
-export default function DueMinderAIUI({ isOpen, onClose, bills }) {
+export default function DueMinderAIUI({ isOpen, onClose, bills, budget }) {
   const [messages, setMessages] = useState([
     { role: "ai", text: "Hello, how can I assist you with your bills?" },
   ]);
   const [input, setInput] = useState("");
+
+  const generatePrioritySuggestions = () => {
+    if (!bills || bills.length === 0) return "You have no bills set yet.";
+
+    const high = bills.filter(bill => bill.priority === "High");
+    const medium = bills.filter(bill => bill.priority === "Medium");
+    const low = bills.filter(bill => bill.priority === "Low");
+
+    const tips = [];
+
+    if (high.length > 0) {
+      tips.push(
+        `You have ${high.length} high-priority bills like ${high.map(b => b.name).join(", ")}. Try to pay these first to avoid penalties.`
+      );
+    }
+
+    if (medium.length > 0) {
+      tips.push(
+        `You have ${medium.length} medium-priority bills. It's good to pay them on time but they may have some flexibility.`
+      );
+    }
+
+    if (low.length > 0) {
+      tips.push(
+        `You have ${low.length} low-priority bills like ${low.map(b => b.name).join(", ")}. Consider deferring these if you're short on budget.`
+      );
+    }
+
+    return tips.join("\n\n");
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -14,16 +44,27 @@ export default function DueMinderAIUI({ isOpen, onClose, bills }) {
     setInput("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: input, bills }), 
-      });
+      let aiReply = "";
 
-      const data = await response.json();
-      const aiMessage = { role: "ai", text: data.reply || "⚠️ No reply." };
+      if (
+        input.toLowerCase().includes("suggestion") ||
+        input.toLowerCase().includes("tip")
+      ) {
+        aiReply = generatePrioritySuggestions();
+      } else {
+        const response = await fetch("http://localhost:5000/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query: input, bills, budget }),
+        });
+
+        const data = await response.json();
+        aiReply = data.reply || "⚠️ No reply.";
+      }
+
+      const aiMessage = { role: "ai", text: aiReply };
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
       console.error("Fetch error:", error);

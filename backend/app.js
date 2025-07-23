@@ -86,18 +86,22 @@ ${knowledge}
 }
 
 app.post("/api/chat", async (req, res) => {
-  const { query, bills } = req.body;
+  const { query, bills, budget } = req.body; 
 
   try {
     const billText = bills
       .map((b) => `- ${b.name} due on ${b.dueDate} with amount ₱${b.amount}`)
       .join("\n");
 
+    const budgetValue = parseFloat(budget || 0).toFixed(2);
+    const budgetText = `The user's current budget is ₱${budgetValue}.`;
+
     const queryEmbedding = await embedText(query);
     const relevantChunks = retrieveRelevantChunks(queryEmbedding);
     const knowledge = relevantChunks.map((c) => c.text).join("\n\n");
 
-    const prompt = `You are DueMinder, a helpful assistant that assists users in managing bills, subscriptions, and reminders.
+    const prompt = `
+You are DueMinder, a helpful assistant that assists users in managing bills, subscriptions, and reminders.
 
 User’s Question:
 ${query}
@@ -105,10 +109,13 @@ ${query}
 Here is the user's bill data:
 ${billText}
 
+${budgetText}
+
 Additional relevant information:
 ${knowledge}
 
-Answer based on the bill data and respond conversationally.`;
+Answer based on the budget and bill data. Respond conversationally.
+`;
 
     const response = await ai.models.generateContent({
       model: "gemini-1.5-flash",
@@ -125,6 +132,7 @@ Answer based on the bill data and respond conversationally.`;
     res.status(500).json({ reply: "❌ Failed to generate a response." });
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
