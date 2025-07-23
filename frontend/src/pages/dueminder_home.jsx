@@ -94,12 +94,11 @@ export default function Home() {
       dueDate: bill.dueDate,
       priority: bill.priority,
     });
-    setShowModal(false);
+    setShowEditModal(true);
   };
 
   const closeModal = () => {
     setShowEditModal(false);
-    diting
     setEditingBill(null);
     setNewBill({
       name: "",

@@ -1,11 +1,64 @@
 import React, { useEffect, useState } from "react";
 import DueMinderAIUI from "./dueminder.conversation";
+import emailjs from "emailjs-com";
 
 function Settings() {
   // AI
   const [chatbotOpen, setChatbotOpen] = useState(false);
+  const [isOn, setIsOn] = useState(() => {
+    const stored = localStorage.getItem("notificationsEnabled");
+    return stored ? JSON.parse(stored) : false;
+  });
+  const [userEmail, setUserEmail] = useState("");
+  const [bills, setBills] = useState([]);
 
-  const [isOn, setIsOn] = useState(false);
+  useEffect(() => {
+    const storedBills = localStorage.getItem("bills");
+    if (storedBills) {
+      setBills(JSON.parse(storedBills));
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
+
+  const toggleNotifications = () => {
+    const updated = !isOn;
+    setIsOn(updated);
+    localStorage.setItem("notificationsEnabled", JSON.stringify(updated));
+  };
+
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    const notificationsAllowed = JSON.parse(localStorage.getItem("notificationsEnabled"));
+    const storedEmail = localStorage.getItem("userEmail");
+
+    if (notificationsAllowed && storedEmail) {
+      bills.forEach((bill) => {
+        const daysLeft = (new Date(bill.dueDate) - new Date(today)) / (1000 * 60 * 60 * 24);
+        if (daysLeft <= 2) {
+          sendReminderEmail(bill, storedEmail);
+        }
+      });
+    }
+  }, [bills]);
+
+  const sendReminderEmail = (bill, email) => {
+    const templateParams = {
+      to_email: email,
+      bill_name: bill.name,
+      due_date: bill.dueDate,
+      amount: bill.amount,
+    };
+
+    emailjs.send("service_p4kh83e", "template_knq28ca", templateParams, "muDJ0JS2U8D5QQgZ_")
+      .then((res) => console.log("Email sent!", res))
+      .catch((err) => console.error("Email error:", err));
+  };
 
   return (
     <>
@@ -106,23 +159,21 @@ function Settings() {
                   Notifications
                 </h3>
                 <p className="text-[0.75rem] text-gray-400">
-                  Receive notifications chuchsnflffsd
+                  Receive notifications
                 </p>
               </div>
               <div
-                onClick={() => setIsOn(!isOn)}
-                className={`w-[2.438em] h-[1.25em] flex items-center rounded-full cursor-pointer transition-all duration-300 ${
-                  isOn
-                    ? "bg-[#FE7531] border-[#FE7531]"
-                    : "border-2 border-[#e7deda]"
-                }`}
+                onClick={toggleNotifications}
+                className={`w-[2.438em] h-[1.25em] flex items-center rounded-full cursor-pointer transition-all duration-300 ${isOn
+                  ? "bg-[#FE7531] border-[#FE7531]"
+                  : "border-2 border-[#e7deda]"
+                  }`}
               >
                 <div
-                  className={`w-[0.875em] h-[0.875em] bg-[#FE7531] rounded-full shadow-md transform transition-transform duration-300 ${
-                    isOn
-                      ? "translate-x-5 bg-white"
-                      : "translate-x-1 bg-[#e7deda]"
-                  }`}
+                  className={`w-[0.875em] h-[0.875em] bg-[#FE7531] rounded-full shadow-md transform transition-transform duration-300 ${isOn
+                    ? "translate-x-5 bg-white"
+                    : "translate-x-1 bg-[#e7deda]"
+                    }`}
                 />
               </div>
             </div>
