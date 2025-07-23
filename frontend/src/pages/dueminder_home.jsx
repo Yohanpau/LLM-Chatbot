@@ -64,39 +64,6 @@ function BillCard({ bill, onEdit, onDelete }) {
 export default function Home() {
 
   const [chatbotOpen, setChatbotOpen] = useState(false);
-  // Bills information
-  const [bills, setBills] = useState([
-    {
-      id: 1,
-      name: "Electricity",
-      dueDate: "02/12/25",
-      amount: 100,
-    },
-    {
-      id: 2,
-      name: "Water",
-      dueDate: "02/18/25",
-      amount: 1000,
-    },
-    {
-      id: 3,
-      name: "Rent",
-      dueDate: "02/18/25",
-      amount: 10000,
-    },
-    {
-      id: 4,
-      name: "Netflix",
-      dueDate: "02/18/25",
-      amount: 399,
-    },
-    {
-      id: 5,
-      name: "Spotify",
-      dueDate: "02/18/25",
-      amount: 75,
-    },
-  ]);
 
   // Dropdown sorts
   const [open, setOpen] = useState(false);
