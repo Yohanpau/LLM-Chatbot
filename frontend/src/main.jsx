@@ -2,11 +2,11 @@ import React from "react"; // Enables use of JSX (e.g. <h1>Hi</h1>)
 import ReactDOM from "react-dom/client"; //Mounts React app into the real HTML (<div id="root"></div>)
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Handles page navigation
 import SignUp from "./pages/signup.jsx";
-import LogIn from "./pages/login.jsx"; 
-import Home from "./pages/dueminder_home.jsx"; 
-import Settings from "./pages/dueminder_settings.jsx"; 
+import LogIn from "./pages/login.jsx";
+import Home from "./pages/dueminder_home.jsx";
+import Settings from "./pages/dueminder_settings.jsx";
 import ProtectedRoute from "./components/protectedroutes.jsx" //Protecting Routes to be simple typed in by users without Authenticatio. (Home and Setting)
-import Profile from "./pages/dueminder_profile.jsx"; 
+import Profile from "./pages/dueminder_profile.jsx";
 import "/index.css";
 
 //Since we don't have app.jsx, we just put this block of code to the main,jsx instead
@@ -25,8 +25,12 @@ const MainApp = () => { // changed into arrow function insteat of just a functio
           <ProtectedRoute>
             <Settings />
           </ProtectedRoute>
-          } />
-        <Route path="/profile" element={<Profile />} />
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+          }/>
       </Routes>
     </BrowserRouter>
   );
