@@ -36,8 +36,8 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-24 right-6 w-[300px] h-[420px] bg-[#1a1a1a] border border-[#FE7531] rounded-xl shadow-xl flex flex-col z-50">
-      <div className="flex-1 overflow-y-auto p-3 text-white space-y-2">
+    <div className="fixed top-24 left-6 w-[88%] h-[85%] bg-[#111111] border border-[#464646] rounded-xl shadow-xl flex flex-col z-50">
+      <div className="flex-1 overflow-y-auto p-3 text-[#e7deda] space-y-2">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -45,10 +45,11 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
               msg.role === "ai" ? "justify-start" : "justify-end"
             }`}
           >
+            {/* Message container */}
             <div
               className={`rounded-xl px-3 py-2 max-w-[70%] ${
                 msg.role === "ai"
-                  ? "bg-[#FE7531] text-white"
+                  ? "bg-[#FE7531] text-[#e7deda]"
                   : "border border-[#FE7531] text-[#FE7531]"
               }`}
             >
@@ -57,17 +58,32 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
           </div>
         ))}
       </div>
-      <div className="flex items-center border-t border-[#FE7531] p-2">
+      <div className="flex items-center border-[0.063em] m-6 border-[#FE7531] p-2 rounded-lg">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="Ask any questions!"
-          className="flex-1 p-2 bg-transparent text-white outline-none"
+          className="flex-1 p-2 bg-transparent text-[#e7deda] outline-none text-[0.875rem]"
         />
-        <button onClick={handleSend} className="ml-2 text-[#FE7531]">
-          ▶
+
+        {/* Send button */}
+        <button onClick={handleSend} className="mr-3 text-[#FE7531]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="#e7deda"
+            className="w-5 h-5 rotate-45 active:rotate-0 transition-transform duration-300 ease-in-out"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"
+            />
+          </svg>
         </button>
       </div>
     </div>
