@@ -130,6 +130,7 @@ export default function Home() {
       <DueMinderAIUI
         isOpen={chatbotOpen}
         onClose={() => setChatbotOpen(false)}
+        bills={bills}
       />
       {/* Upper icons */}
       <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">

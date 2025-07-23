@@ -1,37 +1,38 @@
 import React, { useState } from "react";
 
-export default function DueMinderAIUI({ isOpen, onClose }) {
+export default function DueMinderAIUI({ isOpen, onClose, bills }) {
   const [messages, setMessages] = useState([
-    { role: "ai", text: "Hello, there!" },
+    { role: "ai", text: "Hello, how can I assist you with your bills?" },
   ]);
   const [input, setInput] = useState("");
 
   const handleSend = async () => {
-  if (!input.trim()) return;
+    if (!input.trim()) return;
 
-  const newMessages = [...messages, { role: "user", text: input }];
-  setMessages(newMessages);
-  setInput("");
+    const userMessage = { role: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
 
-  try {
-    const response = await fetch("http://localhost:5000/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: input }),
-    });
+    try {
+      const response = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: input, bills }), 
+      });
 
-    const data = await response.json();
-    setMessages((prev) => [...prev, { role: "ai", text: data.reply }]);
-  } catch (error) {
-    console.error("Fetch error:", error);
-    setMessages((prev) => [
-      ...prev,
-      { role: "ai", text: "❌ Failed to fetch response from server." },
-    ]);
-  }
-};
+      const data = await response.json();
+      const aiMessage = { role: "ai", text: data.reply || "⚠️ No reply." };
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", text: "❌ Failed to fetch response from server." },
+      ]);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -45,7 +46,6 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
               msg.role === "ai" ? "justify-start" : "justify-end"
             }`}
           >
-            {/* Message container */}
             <div
               className={`rounded-xl px-3 py-2 max-w-[70%] ${
                 msg.role === "ai"
@@ -58,6 +58,7 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
           </div>
         ))}
       </div>
+
       <div className="flex items-center border-[0.063em] m-6 border-[#FE7531] p-2 rounded-lg">
         <input
           type="text"
@@ -68,7 +69,6 @@ export default function DueMinderAIUI({ isOpen, onClose }) {
           className="flex-1 p-2 bg-transparent text-[#e7deda] outline-none text-[0.875rem]"
         />
 
-        {/* Send button */}
         <button onClick={handleSend} className="mr-3 text-[#FE7531]">
           <svg
             xmlns="http://www.w3.org/2000/svg"

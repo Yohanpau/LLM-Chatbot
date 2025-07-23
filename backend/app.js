@@ -86,9 +86,39 @@ ${knowledge}
 }
 
 app.post("/api/chat", async (req, res) => {
-  const { query } = req.body;
+  const { query, bills } = req.body;
+
   try {
-    const answer = await answerQuery(query);
+    const billText = bills
+      .map((b) => `- ${b.name} due on ${b.dueDate} with amount ₱${b.amount}`)
+      .join("\n");
+
+    const queryEmbedding = await embedText(query);
+    const relevantChunks = retrieveRelevantChunks(queryEmbedding);
+    const knowledge = relevantChunks.map((c) => c.text).join("\n\n");
+
+    const prompt = `You are DueMinder, a helpful assistant that assists users in managing bills, subscriptions, and reminders.
+
+User’s Question:
+${query}
+
+Here is the user's bill data:
+${billText}
+
+Additional relevant information:
+${knowledge}
+
+Answer based on the bill data and respond conversationally.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-1.5-flash",
+      contents: prompt,
+    });
+
+    const parts = response.candidates?.[0]?.content?.parts;
+    const answer =
+      parts?.map((p) => p.text).join("") ?? "⚠️ No response generated.";
+
     res.json({ reply: answer });
   } catch (err) {
     console.error("Error answering query:", err);
