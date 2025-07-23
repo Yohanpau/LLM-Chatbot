@@ -118,12 +118,18 @@ export default function Home() {
   const [selectedPriority, setSelectedPriority] = useState("All");
 
   const [selected, setSelected] = useState("All"); // Dropdown selection
+  
+  // Search bar
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filters bills base on priority
-  const filteredBills =
-    selected === "All"
-      ? bills
-      : bills.filter((bill) => bill.priority === selected);
+  const filteredBills = bills.filter((bill) => {
+    const matchesPriority = selected === "All" || bill.priority === selected;
+    const matchesSearch =
+      bill.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      bill.amount.toString().includes(searchQuery);
+    return matchesPriority && matchesSearch;
+  });
 
   return (
     <>
@@ -201,6 +207,8 @@ export default function Home() {
               placeholder="Search your bill here..."
               name="search"
               id="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em] outline-[#FFF6F2]"
             />
             <svg
@@ -275,6 +283,9 @@ export default function Home() {
             />
           ))}
         </div>
+        {filteredBills.map((bill) => (
+          <div key={bill.id}>{/* Render bill info here */}</div>
+        ))}
 
         {/* Add bill button */}
         <div className="flex absolute right-0 left-0 bottom-8 justify-center items-center">
