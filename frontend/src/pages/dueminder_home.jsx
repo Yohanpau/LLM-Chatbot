@@ -200,7 +200,7 @@ export default function Home() {
               placeholder="Search your bill here..."
               name="search"
               id="search"
-              className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em]"
+              className="h-[2.5em] w-[100%] p-[0.775em] rounded-[0.625em] bg-transparent border-[#464646] border-[0.063em] outline-[#FFF6F2]"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +225,7 @@ export default function Home() {
               <select
                 value={selected}
                 onChange={(e) => setSelected(e.target.value)}
-                className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded-[0.625em] appearance-none"
+                className="flex w-32 items-center justify-between gap-2 px-4 h-[2.5em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded-[0.625em] appearance-none outline-none"
               >
                 {options.map((option) => (
                   // Dropdown options

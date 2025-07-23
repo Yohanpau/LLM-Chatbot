@@ -35,7 +35,7 @@ function SignUp() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       action=""
-      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
+      className="flex flex-col items-center justify-center min-h-screen text-[#FFF6F2] gap-[3.25em]"
     >
       {/* Header */}
       <h1 className="flex flex-wrap text-[#FE7531] text-[2.9rem]/[1.2em] font-bold">
@@ -54,7 +54,7 @@ function SignUp() {
             placeholder="Enter your full name..."
             name="name"
             id="name"
-            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] outline-[#FFF6F2]"
           />
           {errors.name && (
             <span style={{ color: "red" }}>*Name* is mandatory</span>
@@ -72,7 +72,7 @@ function SignUp() {
             placeholder="Enter your email address..."
             name="email"
             id="email"
-            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] outline-[#FFF6F2]"
           />
           {errors.email && (
             <span style={{ color: "red" }}>*Email* is mandatory</span>
@@ -89,7 +89,7 @@ function SignUp() {
               type={showPassword ? "text" : "password"}
               {...register("password", { required: true })}
               placeholder="Enter your password..."
-              className="w-full h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+              className="w-full h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] outline-[#FFF6F2]"
             />
             {errors.password && (
               <span className="text-red-500 text-sm">

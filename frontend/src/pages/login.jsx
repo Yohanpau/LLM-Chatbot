@@ -8,7 +8,7 @@ function LogIn() {
 
   const {
     register,
-    handleSubmit, // ✅ Added missing handleSubmit
+    handleSubmit, // Added missing handleSubmit
     formState: { errors },
   } = useForm();
 
@@ -31,7 +31,7 @@ function LogIn() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center min-h-screen text-[#e7deda] gap-[3.25em]"
+      className="flex flex-col items-center justify-center min-h-screen text-[#FFF6F2] gap-[3.25em]"
     >
       {/* Header */}
       <div className="flex flex-wrap font-bold gap-[0.3em]">
@@ -64,7 +64,7 @@ function LogIn() {
             type="text"
             {...register("email", { required: true })}
             placeholder="Enter your email address..."
-            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+            className="h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] outline-[#FFF6F2]"
           />
           {errors.email && (
             <span className="text-red-500 text-sm">*Email* is mandatory</span>
@@ -81,7 +81,7 @@ function LogIn() {
               type={showPassword ? "text" : "password"}
               {...register("password", { required: true })}
               placeholder="Enter your password..."
-              className="w-full h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em]"
+              className="w-full h-[2.813em] p-[0.875em] rounded-[0.625em] bg-transparent border-[#FE7531] border-[0.063em] outline-[#FFF6F2]"
             />
             {errors.password && (
               <span className="text-red-500 text-sm">
