@@ -283,6 +283,7 @@ export default function Home() {
             />
           ))}
         </div>
+        {/* Searched bill will appear using this code */}
         {filteredBills.map((bill) => (
           <div key={bill.id}>{/* Render bill info here */}</div>
         ))}
