@@ -1,9 +1,7 @@
 {
   "name": "dueminder",
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "prebuild": "npm run prebuild --workspaces --if-present",
-    "dev": "npm run dev --workspaces --if-present"
+    "build": "react-scripts build"
   },
   "type": "module",
   "workspaces": [
