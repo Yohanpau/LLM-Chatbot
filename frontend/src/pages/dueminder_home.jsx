@@ -313,7 +313,7 @@ const openAddModal = () => {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-pink-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-red-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
