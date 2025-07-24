@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fs from "fs";
-import pdf from "pdf-parse";
 import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
 import cosineSimilarity from "cosine-similarity";
+import PDFParser from "pdf2json";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -50,13 +50,26 @@ function splitText(text, chunkSize, overlap) {
 }
 
 async function loadPDFChunks(pdfPath) {
-  const dataBuffer = fs.readFileSync(pdfPath);
-  const { text } = await pdf(dataBuffer);
-  const chunks = splitText(text.slice(0, 4000), 200, 50);
-  for (const chunk of chunks) {
-    const embedding = await embedText(chunk);
-    vectorStore.push({ id: uuidv4(), text: chunk, embedding });
-  }
+  return new Promise((resolve, reject) => {
+    const pdfParser = new PDFParser();
+
+    pdfParser.on("pdfParser_dataError", (errData) => {
+      console.error("PDF parsing error:", errData.parserError);
+      reject(errData.parserError);
+    });
+
+    pdfParser.on("pdfParser_dataReady", async (pdfData) => {
+      const rawText = pdfParser.getRawTextContent();
+      const chunks = splitText(rawText.slice(0, 4000), 200, 50);
+      for (const chunk of chunks) {
+        const embedding = await embedText(chunk);
+        vectorStore.push({ id: uuidv4(), text: chunk, embedding });
+      }
+      resolve();
+    });
+
+    pdfParser.loadPDF(pdfPath);
+  });
 }
 
 function retrieveRelevantChunks(queryEmbedding, topK = 5) {
