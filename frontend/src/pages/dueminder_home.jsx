@@ -255,7 +255,7 @@ const openAddModal = () => {
               </div>
 
               {/* Bill priority dropdown */}
-              <div className="relative w-[40%]">
+              <div className="relative w-[60%]">
                 <select
                   value={newBill.priority}
                   onChange={(e) => {
@@ -538,7 +538,7 @@ const openAddModal = () => {
                 </div>
 
                 {/* Bill dropdown */}
-                <div className="relative w-[50%]">
+                <div className="relative w-[60%]">
                   <select
                     value={newBill.priority}
                     onChange={(e) => {
