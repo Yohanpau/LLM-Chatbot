@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fs from "fs";
-import path from "path";
 import pdf from "pdf-parse";
 import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
@@ -45,19 +44,13 @@ function splitText(text, chunkSize, overlap) {
   return chunks;
 }
 
-async function loadPDFChunks(pdfFilename) {
-  try {
-    const pdfPath = path.resolve(__dirname, pdfFilename);
-    const dataBuffer = fs.readFileSync(pdfPath);
-    const { text } = await pdf(dataBuffer);
-    const chunks = splitText(text.slice(0, 4000), 200, 50);
-    for (const chunk of chunks) {
-      const embedding = await embedText(chunk);
-      vectorStore.push({ id: uuidv4(), text: chunk, embedding });
-    }
-    console.log(`✅ Loaded ${chunks.length} chunks from ${pdfFilename}`);
-  } catch (err) {
-    console.error(`❌ Failed to load PDF: ${err.message}`);
+async function loadPDFChunks(pdfPath) {
+  const dataBuffer = fs.readFileSync(pdfPath);
+  const { text } = await pdf(dataBuffer);
+  const chunks = splitText(text.slice(0, 4000), 200, 50);
+  for (const chunk of chunks) {
+    const embedding = await embedText(chunk);
+    vectorStore.push({ id: uuidv4(), text: chunk, embedding });
   }
 }
 
@@ -71,8 +64,31 @@ function retrieveRelevantChunks(queryEmbedding, topK = 5) {
     .slice(0, topK);
 }
 
+async function answerQuery(query) {
+  const queryEmbedding = await embedText(query);
+  const relevantChunks = retrieveRelevantChunks(queryEmbedding);
+  const knowledge = relevantChunks.map((c) => c.text).join("\n\n");
+
+  const prompt = `
+You are DueMinder, a helpful assistant designed to help users with anything related to their bills, payments, subscriptions, and reminders. Answer clearly and conversationally based on what you know.
+
+User's question: ${query}
+
+Relevant information:
+${knowledge}
+`;
+
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: prompt,
+  });
+
+  const parts = response.candidates?.[0]?.content?.parts;
+  return parts?.map((p) => p.text).join("") ?? "⚠️ No response generated.";
+}
+
 app.post("/api/chat", async (req, res) => {
-  const { query, bills, budget } = req.body;
+  const { query, bills, budget } = req.body; 
 
   try {
     const billText = bills
@@ -118,6 +134,7 @@ Answer based on the budget and bill data. Respond conversationally.
     res.status(500).json({ reply: "❌ Failed to generate a response." });
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
