@@ -476,63 +476,62 @@ export default function Home() {
                 }
               />
 
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 w-full">
                 {/* Bill due date */}
                 <input
                   type="date"
-                  className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                  className="w-[50%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
                   }
                 />
 
+                {/* Bill dropdown */}
                 <div className="relative w-[50%]">
-                  <div className="relative w-32">
-                    <select
-                      value={newBill.priority}
-                      onChange={(e) => {
-                        setNewBill({ ...newBill, priority: e.target.value });
-                        setOpen(false);
-                      }}
-                      onClick={() => setOpen(!open)}
-                      className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none outline-none"
-                    >
-                      {options.map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className="bg-[#464646] text-[#FFF6F2]"
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-
-                    {/* Custom arrow icon */}
-                    <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={`h-4 transition-transform duration-200 ${
-                          open ? "rotate-180" : ""
-                        }`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                  <select
+                    value={newBill.priority}
+                    onChange={(e) => {
+                      setNewBill({ ...newBill, priority: e.target.value });
+                      setOpen(false);
+                    }}
+                    onClick={() => setOpen(!open)}
+                    className="w-full px-4 h-[2.8em] bg-transparent text-[#FFF6F2] border-[#464646] border-[0.063em] rounded appearance-none outline-none"
+                  >
+                    {options.map((option) => (
+                      <option
+                        key={option}
+                        value={option}
+                        className="bg-[#464646] text-[#FFF6F2]"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </div>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* Custom arrow icon */}
+                  <div className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`h-4 transition-transform duration-200 ${
+                        open ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 pt-2">
+              <div className="flex justify-center gap-2 pt-2 w-full">
                 <button
                   onClick={() => {
                     const billWithId = {
@@ -552,13 +551,13 @@ export default function Home() {
                       priority: "Medium",
                     });
                   }}
-                  className="px-[3.35rem] py-2 bg-[#FE7531] active:opacity-80 rounded-full"
+                  className="w-[50%] py-2 bg-[#FE7531] active:opacity-80 rounded-full font-bold"
                 >
                   Add
                 </button>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-[3.35rem] py-2 bg-transparent active:bg-gray-700 border-[#464646] border-[0.063em] rounded-full"
+                  className="w-[50%] py-2 font-bold bg-transparent active:bg-gray-700 border-[#464646] border-[0.063em] rounded-full"
                 >
                   Cancel
                 </button>
