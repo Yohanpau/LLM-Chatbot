@@ -70,13 +70,16 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const options = ["All", "High", "Medium", "Low"];
 
+  //For both add and edit bill
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
   //Editing
   const [editingBill, setEditingBill] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editBill, setEditBill] = useState({
     name: "",
     amount: "",
-    dueDate: "",
+    dueDate: today,
     priority: "All",
   });
 
@@ -136,7 +139,7 @@ export default function Home() {
   const [newBill, setNewBill] = useState({
     name: "",
     amount: "",
-    dueDate: "",
+    dueDate: today,
     priority: "All",
   });
 
@@ -186,7 +189,7 @@ export default function Home() {
         <div className="fixed inset-0 bg-[#010101] bg-opacity-70 flex justify-center items-center z-50">
           <div className="bg-[#111111] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
             <h2 className="text-xl font-bold mb-2">Edit Bill</h2>
-
+            {/* Bill amount */}
             <input
               type="text"
               placeholder="Bill Name"
@@ -195,6 +198,7 @@ export default function Home() {
               className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
 
+            {/* Bill amount */}
             <input
               type="number"
               placeholder="Amount"
@@ -205,6 +209,7 @@ export default function Home() {
               className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
 
+            {/* Bill due date */}
             <div className="flex flex-row gap-2 w-full">
               <input
                 type="date"
@@ -215,6 +220,7 @@ export default function Home() {
                 className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
               />
 
+              {/* Bill priority dropdown */}
               <div className="relative w-[40%]">
                 <select
                   value={newBill.priority}
@@ -275,7 +281,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-red-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-orange-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
@@ -477,11 +483,11 @@ export default function Home() {
                 {/* Bill due date */}
                 <input
                   type="date"
-                  className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
                   }
+                  className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 />
 
                 {/* Bill drop down priotity */}
