@@ -276,7 +276,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em]">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-slate-800">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
