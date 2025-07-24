@@ -9,7 +9,9 @@ import cosineSimilarity from "cosine-similarity";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://dueminder.netlify.app"
+}));
 app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
