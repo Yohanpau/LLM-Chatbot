@@ -46,8 +46,8 @@ function splitText(text, chunkSize, overlap) {
   return chunks;
 }
 
-async function loadPDFChunks(pdfPath) {
-  const dataBuffer = fs.readFileSync(pdfPath);
+async function loadPDFChunks() {
+  const dataBuffer = fs.readFileSync('/Dueminder.pdf');
   const { text } = await pdf(dataBuffer);
   const chunks = splitText(text.slice(0, 4000), 200, 50);
   for (const chunk of chunks) {
