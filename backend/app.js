@@ -6,6 +6,11 @@ import pdf from "pdf-parse";
 import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
 import cosineSimilarity from "cosine-similarity";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
@@ -16,6 +21,8 @@ app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const vectorStore = [];
+
+const pdfPath = path.resolve(__dirname, pdfFilename);
 
 // PDF embedding functions
 async function embedText(text) {
@@ -44,13 +51,19 @@ function splitText(text, chunkSize, overlap) {
   return chunks;
 }
 
-async function loadPDFChunks(pdfPath) {
-  const dataBuffer = fs.readFileSync(pdfPath);
-  const { text } = await pdf(dataBuffer);
-  const chunks = splitText(text.slice(0, 4000), 200, 50);
-  for (const chunk of chunks) {
-    const embedding = await embedText(chunk);
-    vectorStore.push({ id: uuidv4(), text: chunk, embedding });
+async function loadPDFChunks(pdfFilename) {
+  try {
+    const pdfPath = path.resolve(__dirname, pdfFilename);
+    const dataBuffer = fs.readFileSync(pdfPath);
+    const { text } = await pdf(dataBuffer);
+    const chunks = splitText(text.slice(0, 4000), 200, 50);
+    for (const chunk of chunks) {
+      const embedding = await embedText(chunk);
+      vectorStore.push({ id: uuidv4(), text: chunk, embedding });
+    }
+    console.log(`✅ Loaded ${chunks.length} chunks from ${pdfFilename}`);
+  } catch (err) {
+    console.error(`❌ Failed to load PDF: ${err.message}`);
   }
 }
 
@@ -88,7 +101,7 @@ ${knowledge}
 }
 
 app.post("/api/chat", async (req, res) => {
-  const { query, bills, budget } = req.body; 
+  const { query, bills, budget } = req.body;
 
   try {
     const billText = bills
