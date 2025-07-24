@@ -160,7 +160,7 @@ export default function Home() {
   const [selectedPriority, setSelectedPriority] = useState("All");
 
   const [selected, setSelected] = useState("All"); // Dropdown selection
-  
+
   // Search bar
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -172,7 +172,6 @@ export default function Home() {
       bill.amount.toString().includes(searchQuery);
     return matchesPriority && matchesSearch;
   });
-
 
   return (
     <>
@@ -276,7 +275,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-gray-50">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-red-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
@@ -451,8 +450,8 @@ export default function Home() {
         {showModal && (
           <div className="fixed inset-0 bg-[#010101] bg-opacity-70 flex justify-center items-center z-50">
             <div className="bg-[#111111] p-6 rounded-xl w-[90%] max-w-md text-white space-y-4">
-              <h2 className="text-xl font-bold mb-2">Add New Bill</h2>
-              {/* Bill name input */}
+              <h2 className="text-xl font-bold mb-2">Add Bill</h2>
+              {/* Bill Name */}
               <input
                 type="text"
                 placeholder="Bill Name"
@@ -485,7 +484,7 @@ export default function Home() {
                   }
                 />
 
-                {/* Bill dropdown */}
+                {/* Bill drop down priotity */}
                 <div className="relative w-[40%]">
                   <select
                     value={newBill.priority}
@@ -534,7 +533,7 @@ export default function Home() {
                   onClick={() => {
                     const billWithId = {
                       ...newBill,
-                      id: Date.now(), // Add this line to generate a unique ID
+                      id: Date.now(),
                     };
                     const updatedBills = [...bills, billWithId];
                     setBills(updatedBills);
