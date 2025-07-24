@@ -19,20 +19,8 @@ Managing bills can be overwhelming, especially when there are multiple due dates
 In order to use DueMinder, one must open this repository, have an API key, have an API key and run the following commands:
 
 ### 1. Install all dependencies in the project root:
-### 1. Install all dependencies in the project root:
 ```
 npm i
-```
-### 2. Navigate to the backend folder:
-```
-cd backend
-```
-### 3. Start the backend server:
-```
-node app.js
-```
-### 4. Open another terminal.
-### 5. Go back to the root folder (if needed) and run the frontend:
 ```
 ### 2. Navigate to the backend folder:
 ```
@@ -48,8 +36,6 @@ node app.js
 npm run dev
 ```
 ### 6. Click the provided local URL to view the site in your browser (e.g., http://localhost:3000).
-### 6. Click the provided local URL to view the site in your browser (e.g., http://localhost:3000).
 
-# That's it!
 # That's it!
 Thank you for using Dueminder.
