@@ -37,5 +37,5 @@ npm run dev
 ```
 ### 6. Click the provided local URL to view the site in your browser (e.g., http://localhost:3000).
 
-# That is it!
+# That's it!
 Thank you for using Dueminder.
