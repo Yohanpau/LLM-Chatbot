@@ -213,10 +213,10 @@ export default function Home() {
                 onChange={(e) =>
                   setNewBill({ ...newBill, dueDate: e.target.value })
                 }
-                className="w-[55%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
               />
 
-              <div className="relative w-[45%]">
+              <div className="relative w-[40%]">
                 <select
                   value={newBill.priority}
                   onChange={(e) => {
@@ -276,7 +276,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-slate-800">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-gray-50">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
@@ -478,7 +478,7 @@ export default function Home() {
                 {/* Bill due date */}
                 <input
                   type="date"
-                  className="w-[55%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                  className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
@@ -486,7 +486,7 @@ export default function Home() {
                 />
 
                 {/* Bill dropdown */}
-                <div className="relative w-[45%]">
+                <div className="relative w-[40%]">
                   <select
                     value={newBill.priority}
                     onChange={(e) => {
