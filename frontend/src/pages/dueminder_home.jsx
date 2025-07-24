@@ -207,7 +207,7 @@ const openAddModal = () => {
               placeholder="Bill Name"
               value={newBill.name}
               onChange={(e) => setNewBill({ ...newBill, name: e.target.value })}
-              className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+              className="w-full p-2 pl-3 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
 
             {/* Bill amount */}
@@ -218,23 +218,39 @@ const openAddModal = () => {
               onChange={(e) =>
                 setNewBill({ ...newBill, amount: e.target.value })
               }
-              className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+              className="w-full p-2 pl-3 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
             />
 
             {/* Bill due date */}
             <div className="flex flex-row gap-2 w-full">
-              <DatePicker
-                selected={newBill.dueDate ? new Date(newBill.dueDate) : null}
-                onChange={(date) =>
-                  setNewBill({
-                    ...newBill,
-                    dueDate: date.toISOString().split("T")[0], // same format as before (YYYY-MM-DD)
-                  })
-                }
-                placeholderText="MM/DD/YY"
-                dateFormat="MM/dd/yy"
-                className="w-full p-2 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
-              />
+              <div className="flex flex-row relative">
+                <DatePicker
+                  selected={newBill.dueDate ? new Date(newBill.dueDate) : null}
+                  onChange={(date) =>
+                    setNewBill({
+                      ...newBill,
+                      dueDate: date.toISOString().split("T")[0], // same format as before (YYYY-MM-DD)
+                    })
+                  }
+                  placeholderText="MM/DD/YY"
+                  dateFormat="MM/dd/yy"
+                  className="w-full p-2 pl-3 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5 text-white opacity-60 absolute right-3 top-[0.7em]"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 6V4.5m7.5 1.5V4.5M3.75 9h16.5M4.5 5.25h15A1.5 1.5 0 0121 6.75v12a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.75v-12A1.5 1.5 0 014.5 5.25z"
+                  />
+                </svg>
+              </div>
 
               {/* Bill priority dropdown */}
               <div className="relative w-[40%]">
@@ -297,7 +313,7 @@ const openAddModal = () => {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-green-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-pink-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
@@ -474,7 +490,7 @@ const openAddModal = () => {
               <input
                 type="text"
                 placeholder="Bill Name"
-                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                className="w-full p-2 pl-3 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.name}
                 onChange={(e) =>
                   setNewBill({ ...newBill, name: e.target.value })
@@ -485,7 +501,7 @@ const openAddModal = () => {
               <input
                 type="number"
                 placeholder="Amount"
-                className="w-full p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                className="w-full p-2 pl-3 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
                 value={newBill.amount}
                 onChange={(e) =>
                   setNewBill({ ...newBill, amount: e.target.value })
@@ -494,13 +510,30 @@ const openAddModal = () => {
 
               <div className="flex flex-row gap-2 w-full">
                 {/* Bill due date */}
-                <DatePicker
-                  selected={newBill.dueDate}
-                  onChange={(date) => setNewBill({ ...newBill, dueDate: date })}
-                  dateFormat="MM/dd/yy"
-                  placeholderText="MM/DD/YY"
-                  className="w-full p-2 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
-                />
+                <div className="flex flex-row relative">
+                  <DatePicker
+                    selected={newBill.dueDate}
+                    onChange={(date) => setNewBill({ ...newBill, dueDate: date })}
+                    dateFormat="MM/dd/yy"
+                    placeholderText="MM/DD/YY"
+                    className="w-full p-2 pl-3 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
+                  />
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-5 h-5 text-white opacity-60 absolute right-3 top-[0.7em]"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 6V4.5m7.5 1.5V4.5M3.75 9h16.5M4.5 5.25h15A1.5 1.5 0 0121 6.75v12a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 18.75v-12A1.5 1.5 0 014.5 5.25z"
+                    />
+                  </svg>
+                </div>
 
                 {/* Bill dropdown */}
                 <div className="relative w-[50%]">
