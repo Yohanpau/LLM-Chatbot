@@ -218,7 +218,7 @@ export default function Home() {
                 onChange={(e) =>
                   setNewBill({ ...newBill, dueDate: e.target.value })
                 }
-                className="w-full p-2 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
+                className="w-[60%] p-2 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
               />
 
               {/* Bill priority dropdown */}
@@ -282,7 +282,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-orange-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-green-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
