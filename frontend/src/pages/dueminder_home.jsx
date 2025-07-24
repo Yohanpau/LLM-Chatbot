@@ -218,7 +218,7 @@ export default function Home() {
                 onChange={(e) =>
                   setNewBill({ ...newBill, dueDate: e.target.value })
                 }
-                className="w-[60%] p-2 rounded bg-transparent border border-[#464646] outline-[#FFF6F2]"
+                className="w-full p-2 rounded bg-[#1a1a1a] border border-[#464646] text-white outline-[#FFF6F2]"
               />
 
               {/* Bill priority dropdown */}
