@@ -192,8 +192,10 @@ const openAddModal = () => {
       <EmailReminderHandler />
       {/* AI */}
       <DueMinderAIUI
-        isOpen={chatbotOpen}
-        onClose={() => setChatbotOpen(false)}
+      isOpen={chatbotOpen}
+      onClose={() => setChatbotOpen(false)}
+      bills={bills}
+      budget={Number(budget)} 
       />
 
       {/* Edit Modal */}
