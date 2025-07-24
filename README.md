@@ -16,16 +16,26 @@ Managing bills can be overwhelming, especially when there are multiple due dates
 ### 5. Notifications are sent via email/SMS.
 
 ## Opening the Project
-In order to use DueMinder, one must open this repository and run the following commands:
+In order to use DueMinder, one must open this repository, have an API key and run the following commands:
 
+### 1. Install all dependencies in the project root:
 ```
 npm i
-# Install necessary dependencies
 ```
+### 2. Navigate to the backend folder:
+```
+cd backend
+```
+### 3. Start the backend server:
+```
+node app.js
+```
+### 4. Open another terminal.
+### 5. Go back to the root folder (if needed) and run the frontend:
 ```
 npm run dev
-# Running the development server
 ```
+### 6. Click the provided local URL to view the site in your browser (e.g., http://localhost:3000).
 
 # That is it!
 Thank you for using Dueminder.
