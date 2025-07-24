@@ -6,8 +6,11 @@ import pdf from "pdf-parse";
 import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
 import cosineSimilarity from "cosine-similarity";
+import path from "path";
+import { fileURLToPath } from "url";
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 app.use(cors({
@@ -46,8 +49,8 @@ function splitText(text, chunkSize, overlap) {
   return chunks;
 }
 
-async function loadPDFChunks() {
-  const dataBuffer = fs.readFileSync('/Dueminder.pdf');
+async function loadPDFChunks(pdfPath) {
+  const dataBuffer = fs.readFileSync(pdfPath);
   const { text } = await pdf(dataBuffer);
   const chunks = splitText(text.slice(0, 4000), 200, 50);
   for (const chunk of chunks) {
@@ -141,5 +144,13 @@ Answer based on the budget and bill data. Respond conversationally.
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-  await loadPDFChunks("Dueminder.pdf");
+
+  const pdfPath = path.join(__dirname, "Dueminder.pdf");
+
+  if (fs.existsSync(pdfPath)) {
+    await loadPDFChunks(pdfPath);
+    console.log("✅ Dueminder.pdf loaded successfully.");
+  } else {
+    console.error("❌ Dueminder.pdf not found in backend folder.");
+  }
 });
