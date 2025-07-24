@@ -139,7 +139,7 @@ export default function Home() {
   const [newBill, setNewBill] = useState({
     name: "",
     amount: "",
-    dueDate: "",
+    dueDate: today,
     priority: "All",
   });
 
@@ -282,7 +282,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-yellow-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-orange-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
