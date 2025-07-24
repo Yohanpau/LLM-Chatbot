@@ -139,7 +139,7 @@ export default function Home() {
   const [newBill, setNewBill] = useState({
     name: "",
     amount: "",
-    dueDate: today,
+    dueDate: "",
     priority: "All",
   });
 
@@ -213,6 +213,7 @@ export default function Home() {
             <div className="flex flex-row gap-2 w-full">
               <input
                 type="date"
+                placeholder="MM/DD/YY"
                 value={newBill.dueDate}
                 onChange={(e) =>
                   setNewBill({ ...newBill, dueDate: e.target.value })
@@ -281,7 +282,7 @@ export default function Home() {
         </div>
       )}
       {/* Upper icons */}
-      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-orange-500">
+      <div className="flex flex-row justify-between w-[100%] mt-[2em] mb-[1em] bg-yellow-500">
         {/* AI icon */}
         <button onClick={() => setChatbotOpen(!chatbotOpen)}>
           <svg
@@ -483,6 +484,7 @@ export default function Home() {
                 {/* Bill due date */}
                 <input
                   type="date"
+                  placeholder="MM/DD/YY"
                   value={newBill.dueDate}
                   onChange={(e) =>
                     setNewBill({ ...newBill, dueDate: e.target.value })
