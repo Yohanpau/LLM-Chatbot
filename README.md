@@ -136,8 +136,7 @@ npm run dev
 
 key reminder:
 
-Make sure you have your own API Key then create a .env folder 
-then inside of it input the API key GEMINI_API_KEY=xxxxxxx
+Make sure you have your own API Key then create a .env file inside the backend folder then input your API key (e.g., GEMINI_API_KEY=xxxxxxx)
 
 Thank you for using Dueminder.
 
