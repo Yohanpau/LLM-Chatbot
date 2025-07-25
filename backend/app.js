@@ -2,25 +2,18 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fs from "fs";
+import pdf from "pdf-parse";
 import { v4 as uuidv4 } from "uuid";
 import { GoogleGenAI } from "@google/genai";
 import cosineSimilarity from "cosine-similarity";
-import PDFParser from "pdf2json";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
-app.use(cors({
-  origin: "https://dueminder.netlify.app"
-}));
+app.use(cors());
 app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const vectorStore = [];
-
 
 // PDF embedding functions
 async function embedText(text) {
@@ -50,26 +43,13 @@ function splitText(text, chunkSize, overlap) {
 }
 
 async function loadPDFChunks(pdfPath) {
-  return new Promise((resolve, reject) => {
-    const pdfParser = new PDFParser();
-
-    pdfParser.on("pdfParser_dataError", (errData) => {
-      console.error("PDF parsing error:", errData.parserError);
-      reject(errData.parserError);
-    });
-
-    pdfParser.on("pdfParser_dataReady", async (pdfData) => {
-      const rawText = pdfParser.getRawTextContent();
-      const chunks = splitText(rawText.slice(0, 4000), 200, 50);
-      for (const chunk of chunks) {
-        const embedding = await embedText(chunk);
-        vectorStore.push({ id: uuidv4(), text: chunk, embedding });
-      }
-      resolve();
-    });
-
-    pdfParser.loadPDF(pdfPath);
-  });
+  const dataBuffer = fs.readFileSync(pdfPath);
+  const { text } = await pdf(dataBuffer);
+  const chunks = splitText(text.slice(0, 4000), 200, 50);
+  for (const chunk of chunks) {
+    const embedding = await embedText(chunk);
+    vectorStore.push({ id: uuidv4(), text: chunk, embedding });
+  }
 }
 
 function retrieveRelevantChunks(queryEmbedding, topK = 5) {
@@ -106,7 +86,7 @@ ${knowledge}
 }
 
 app.post("/api/chat", async (req, res) => {
-  const { query, bills, budget } = req.body;
+  const { query, bills, budget } = req.body; 
 
   try {
     const billText = bills
@@ -157,13 +137,5 @@ Answer based on the budget and bill data. Respond conversationally.
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-
-  const pdfPath = path.join(__dirname, "Dueminder.pdf");
-
-  if (fs.existsSync(pdfPath)) {
-    await loadPDFChunks(pdfPath);
-    console.log("✅ Dueminder.pdf loaded successfully.");
-  } else {
-    console.error("❌ Dueminder.pdf not found in backend folder.");
-  }
+  await loadPDFChunks("./Dueminder.pdf");
 });
