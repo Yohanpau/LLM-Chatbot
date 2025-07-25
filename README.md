@@ -134,7 +134,7 @@ npm run dev
 
 # That's it!
 
-key reminder:
+# Key Reminder:
 
 Make sure you have your own API Key then create a .env file inside the backend folder then input your API key (e.g., GEMINI_API_KEY=xxxxxxx)
 
