@@ -3,7 +3,7 @@ Managing bills can be overwhelming, especially when there are multiple due dates
 
 ## Features
 - Add, delete, and modify bills based on their priority (e.g., High, Medium)
-- Automated reminders via email and SMS before due dates.
+- Automated reminders via email before due dates.
 - Overview dashboard showing lists with upcoming payments, and total bills to pay.
 - Secure user authentication and data storage.
 - AI-powered summaries of current bills with smart insights and practical advice to help users make better financial decisions.
